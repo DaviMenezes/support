@@ -9,4 +9,12 @@ class Web
 
         ];
     }
+
+    public static function editingParameters(): array
+    {
+        return [
+            ['key' => 'method', 'value' => 'onEdit'],
+            ['key' => 'id']
+        ];
+    }
 }
