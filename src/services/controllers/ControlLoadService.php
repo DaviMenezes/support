@@ -2,7 +2,7 @@
 
 namespace App\Service\Controller;
 
-use App\Http\Request;
+use Dvi\Support\Http\Request;
 use Exception;
 use ReflectionClass;
 

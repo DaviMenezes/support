@@ -13,7 +13,7 @@
 
 use Dvi\Support\Http\Request;
 use Dvi\Support\Collection;
-use Dvi\Support\Corda;
+use Dvi\Corda\Support\Corda;
 use Dvi\Support\Http\Web;
 
 function collection($value)
@@ -61,4 +61,9 @@ function editing()
         }
     }
     return true;
+}
+
+function request():Request
+{
+    return Request::instance();
 }
