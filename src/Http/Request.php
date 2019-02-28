@@ -54,6 +54,14 @@ class Request
         return $result;
     }
 
+    public function request($key, $decode = null, $default = null)
+    {
+        $post = self::$request->request->all();
+        $get = self::$request->query->all();
+        $all = array_merge($get, $post);
+        return collect($all)->get($key, $default);
+    }
+
     public function post($key, $default = null)
     {
         return self::$request->request->get($key, $default);
