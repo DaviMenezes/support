@@ -63,7 +63,7 @@ function editing()
     return true;
 }
 
-function request():Request
+function http():Request
 {
     return Request::instance();
 }
