@@ -9,9 +9,13 @@ Mas por hora posso dizer que a biblioteca de manipulação de strings conversa c
 Com o tempo vou melhorando as dicas de uso.
 
 Entre as bibliotecas as que merecem destaque são: 
+
 *Corda para trabalhar com strings.
+
 *Collection para trabalhar com arrays em forma de coleção.
+
 *Http-foundation para trabalhar com requisições de forma segura
+
 *Fast Route que é o sistema de rotas do Slim framework. 
 
 Este projeto também conta com alguns helpers, mas nada impede de você criar os seus. Há muitos pacotes bons de helpers disponíveis.
