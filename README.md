@@ -4,9 +4,9 @@ O principal motivo desse projetinho é unir o que sempre estou utilizando em pro
 Queria dar comportamentos específicos para alguns helpers então achei melhor criar um fork de alguns projetos para criar minhas próprias brincadeiras.
 
 Por enquanto ele tem alguns helpers que unem funcionalidades entre as biliotecas que para mim se tornaram úteis.
-Observação, com o tempo, vou melhorando as dicas de uso.
-
 Mas por hora posso dizer que a biblioteca de manipulação de strings conversa com a de manipulação de arrays e vice versa. Então quando estiver manipulando uma string você pode obter como resultado um array mas com os helpers corretos você pode obter uma coleção ao invés de array. Ou seja seu resultado está pronto a ser tratado como objetos pela coleção de dados obtida.
+
+Com o tempo vou melhorando as dicas de uso.
 
 Entre as bibliotecas as que merecem destaque são: 
 *Corda para trabalhar com strings.
