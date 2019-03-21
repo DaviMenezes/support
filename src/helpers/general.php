@@ -11,10 +11,14 @@
  * @see https://t.me/davimenezes
  */
 
-use Dvi\Support\Http\Request;
-use Dvi\Support\Collection;
 use Dvi\Corda\Support\Corda;
+use Dvi\Corda\Support\Money;
+use Dvi\Support\Collection;
+use Dvi\Support\Http\Request;
 use Dvi\Support\Http\Web;
+use Money\Currencies\ISOCurrencies;
+use Money\Currency;
+use Money\Parser\IntlLocalizedDecimalParser;
 
 function collection($value)
 {
@@ -76,4 +80,14 @@ function removeDirectory($path)
     }
     rmdir($path);
     return;
+}
+
+/**@return Money*/
+function money($dollar = 0)
+{
+    $dollar = empty($dollar) ? 0 : $dollar;
+    $dollar = str_replace([',', '.'], '', $dollar);
+    $dollar = str($dollar)->removeLeft('00')->str();
+    $money = Money::USD($dollar);
+    return $money;
 }
