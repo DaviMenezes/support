@@ -87,7 +87,7 @@ function money($dollar = 0)
 {
     $dollar = empty($dollar) ? 0 : $dollar;
     $dollar = str_replace([',', '.'], '', $dollar);
-    $dollar = str($dollar)->removeLeft('00')->str();
+    $dollar = str($dollar)->removeLeft('00')->removeLeft('0')->str();
     $money = Money::USD($dollar);
     return $money;
 }
