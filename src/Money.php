@@ -21,7 +21,7 @@ use NumberFormatter;
  * @method \Money\Money getAmount()
  * @method \Money\Money getCurrency()
  * @method \Money\Money add(\Money\Money ...$addends)
- * @method \Money\Money subtract(\Money\Money ...$subtrahends)
+ * @method Money subtract(\Money\Money ...$subtrahends)
  * @method \Money\Money assertOperand($operand)
  * @method \Money\Money assertRoundingMode($roundingMode)
  * @method \Money\Money multiply($multiplier, $roundingMode = \Money\Money::ROUND_HALF_UP)
@@ -119,5 +119,11 @@ class Money
     public function objMoney()
     {
         return $this->money;
+    }
+
+    public function real()
+    {
+        $number = $this->decimal('BRL');
+        return 'R$ '.number_format($number, 2, ',', '.');
     }
 }
