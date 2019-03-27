@@ -45,7 +45,7 @@ class Request
         return self::$request;
     }
 
-    public function get($key, $decode = null, $default = null)
+    public function get($key, $default = null, $decode = null)
     {
         $result = $this->result()->get($key, $default);
         if ($decode) {
@@ -54,12 +54,13 @@ class Request
         return $result;
     }
 
-    public function request($key, $decode = null, $default = null)
+    public function request($key, $default = null, $decode = null)
     {
         $post = self::$request->request->all();
         $get = self::$request->query->all();
         $all = array_merge($get, $post);
-        return collect($all)->get($key, $default);
+        $result = collect($all)->filter()->get($key, $default);
+        return $result;
     }
 
     public function post($key, $default = null)
