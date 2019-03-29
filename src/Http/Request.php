@@ -2,10 +2,8 @@
 
 namespace Dvi\Support\Http;
 
-use Dvi\Corda\Support\Corda;
 use App\Service\Controller\ControlLoadService;
-use Dvi\Adianti\Control\DviControl;
-use Dvi\Support\Http\Web;
+use Dvi\Corda\Support\Corda;
 use FastRoute\Dispatcher;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request as FoundationRequest;
@@ -15,15 +13,16 @@ use Tightenco\Collect\Support\Collection;
 /**
  *  Request
  *
+ * @author     Davi Menezes
+ * @copyright  Copyright (c) 2018. (davimenezes.dev@gmail.com)
+ * @see https://github.com/DaviMenezes
+ * @see https://t.me/davimenezes
  * @method static Corda getScriptName()
  * @method static Corda getRequestUri()
  * @method static Corda getRealMethod()
  * @method static Corda getBaseUrl()
  * @method isXmlHttpRequest()
- * @author     Davi Menezes
- * @copyright  Copyright (c) 2018. (davimenezes.dev@gmail.com)
- * @see https://github.com/DaviMenezes
- * @see https://t.me/davimenezes
+ * @property-read  Request static $instance
  */
 class Request
 {
@@ -58,7 +57,8 @@ class Request
     {
         $post = self::$request->request->all();
         $get = self::$request->query->all();
-        $all = array_merge($get, $post);
+        $attributes = self::$request->attributes->all();
+        $all = array_merge($get, $post, $attributes);
         $result = collect($all)->filter()->get($key, $default);
         return $result;
     }
@@ -80,7 +80,11 @@ class Request
 
     public function all(): array
     {
-        return $this->result()->all();
+        $get = self::$request->query->all();
+        $post = self::$request->request->all();
+        $attributes = self::$request->attributes->all();
+        $all = array_merge($get, $post, $attributes);
+        return $all;
     }
 
     public function collect(): Collection
@@ -100,7 +104,7 @@ class Request
 
     public function getParameters(): array
     {
-        return $this->getCollection()->all();
+        return $this->all();
     }
 
     public function has($key)
