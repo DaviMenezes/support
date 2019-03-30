@@ -1,6 +1,6 @@
 <?php
 
-namespace Dvi\Support\Acl;
+namespace Dvi\Support\Acl\Model;
 
 use Spatie\Enum\Enum;
 

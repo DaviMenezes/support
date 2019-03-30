@@ -1,9 +1,9 @@
 <?php
 
-namespace Dvi\Support\Acl;
+namespace Dvi\Support\Acl\Service;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Capsule\Manager as Capsule;
+
 /**
  *  Permission
  *

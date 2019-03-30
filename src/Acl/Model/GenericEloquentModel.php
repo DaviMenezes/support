@@ -1,12 +1,12 @@
 <?php
 
-namespace Dvi\Support\Acl;
+namespace Dvi\Support\Acl\Model;
 
-use App\Model\Dvi\Base\ModelDviAdianti;
-use App\Model\Dvi\Base\ModelDviEloquent;
+use App\Model\Dvi\Base\ModelAdianti;
+use App\Model\Dvi\Base\ModelEloquent;
 
 /**
- *  Users
+ *  GenericEloquentModel
  *
  * @package
  * @subpackage
@@ -14,7 +14,7 @@ use App\Model\Dvi\Base\ModelDviEloquent;
  * @copyright  Copyright (c) 2018. (davimenezes.dev@gmail.com)
  * @see https://github.com/DaviMenezes
  */
-class Users extends ModelDviEloquent
+class GenericEloquentModel extends ModelAdianti
 {
 
 }
