@@ -17,9 +17,9 @@ use App\Model\Dvi\Base\ModelAdianti;
  * @property string $module_id
  * @property string $action_id
  */
-class AclUserPermissions extends ModelAdianti
+class UserActions extends ModelAdianti
 {
-    public const TABLENAME = 'acl_user_permissions';
+    public const TABLENAME = 'acl_user_actions';
 
     protected $fillable = ['id', 'user_id', 'module_id', 'action_id'];
 }

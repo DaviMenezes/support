@@ -15,9 +15,9 @@ use App\Model\Dvi\Base\ModelAdianti;
  * @property string $id
  * @property string $name
  */
-class AclUserActionTypes extends ModelAdianti
+class ActionTypes extends ModelAdianti
 {
-    public const TABLENAME = 'acl_user_action_types';
+    public const TABLENAME = 'acl_action_types';
 
     protected $fillable = ['id', 'name'];
 }

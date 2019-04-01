@@ -1,19 +1,20 @@
 <?php
 
-namespace Dvi\Support\Acl\Model;
+namespace App\Acl\Module;
 
-use App\Model\Dvi\Base\ModelEloquent;
+use Dvi\Acl\Permission\BasicPermission;
 
 /**
- *  GenericEloquentModel
+ *  UserPermission
  *
  * @package
  * @subpackage
  * @author     Davi Menezes
  * @copyright  Copyright (c) 2018. (davimenezes.dev@gmail.com)
  * @see https://github.com/DaviMenezes
+ * @method static self print_report()
  */
-class GenericEloquentModel extends ModelEloquent
+class UserPermission extends BasicPermission
 {
 
 }

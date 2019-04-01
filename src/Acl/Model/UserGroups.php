@@ -16,9 +16,9 @@ use App\Model\Dvi\Base\ModelAdianti;
  * @property string $user_id
  * @property string $rule_group_id
  */
-class AclUserRuleGroups extends ModelAdianti
+class UserGroups extends ModelAdianti
 {
-    public const TABLENAME = 'acl_user_rule_groups';
+    public const TABLENAME = 'acl_user_groups';
 
     protected $fillable = ['id', 'user_id', 'rule_group_id'];
 }

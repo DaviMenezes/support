@@ -5,17 +5,20 @@ namespace Dvi\Support\Acl\Model;
 use App\Model\Dvi\Base\ModelAdianti;
 
 /**
- *  RuleGroupModules
+ *  Modules
  *
  * @package
  * @subpackage
  * @author     Davi Menezes
  * @copyright  Copyright (c) 2018. (davimenezes.dev@gmail.com)
  * @see https://github.com/DaviMenezes
+ * @property string $id
+ * @property string $name
+ * @property string $description
  */
-class AclRuleGroupModules extends ModelAdianti
+class Modules extends ModelAdianti
 {
-    public const TABLENAME = 'acl_rule_group_modules';
+    public const TABLENAME = 'acl_modules';
 
-    protected $fillable = ['id', 'group_id', 'module_id'];
+    protected $fillable = ['id', 'name', 'description'];
 }
