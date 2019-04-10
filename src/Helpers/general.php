@@ -94,3 +94,17 @@ function money($dollar = 0)
     $money = Money::USD($dollar);
     return $money;
 }
+
+function properties($model)
+{
+    $rf = (new ReflectionClass($model))->getDocComment();
+
+    $obj = new stdClass();
+    str($rf)->lines()->filter()->map(function ($line, $key) use (&$obj){
+        if ($line->contains('@property')) {
+            $property = $line->lastStr('$')->str();
+            $obj->$property = $property;
+        }
+    });
+    return $obj;
+}
