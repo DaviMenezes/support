@@ -53,6 +53,15 @@ class Request
         return $result;
     }
 
+    public function url($key, $default = null, $decode = null)
+    {
+        $result = $this->obj()->query->get($key, $default);
+        if ($decode) {
+            return base64_decode($result);
+        }
+        return $result;
+    }
+
     public function request($key, $default = null, $decode = null)
     {
         $post = self::$request->request->all();
