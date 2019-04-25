@@ -100,11 +100,16 @@ function properties($model)
     $rf = (new ReflectionClass($model))->getDocComment();
 
     $obj = new stdClass();
-    str($rf)->lines()->filter()->map(function ($line, $key) use (&$obj){
+    str($rf)->lines()->filter()->map(function ($line, $key) use (&$obj) {
         if ($line->contains('@property')) {
             $property = $line->lastStr('$')->str();
             $obj->$property = $property;
         }
     });
     return $obj;
+}
+
+function redirect($class)
+{
+    return new \Dvi\Support\Http\Redirect($class);
 }
