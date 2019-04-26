@@ -49,7 +49,7 @@ trait ControlStructureBaseService
             $class = get_called_class();
             $model = $class::getModel();
             $id = http()->get('id');
-            static::$currentObject = $model::find($id);
+            static::$currentObject = $model::find($id) ?? new $model();
         } catch (Exception $e) {
             throw new Exception('Criando objeto corrente: '.$e->getMessage());
         }
