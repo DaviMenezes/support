@@ -4,11 +4,12 @@ namespace Dvi\Support\Acl\Service\Controller\Base\Form;
 use Dvi\Support\Service\Base\Contract\ControlFormBaseInterface;
 use Dvi\Support\Service\Controller\Base\ControlFormListBase;
 use Dvi\Support\Service\Controller\Base\Form\ControlFormLayout;
+use Dvi\Support\Service\Controller\Base\Form\ControlFormTrait;
 use Dvi\Support\Service\Controller\ControlFormService;
 
 abstract class ControlFormBase extends ControlFormListBase implements ControlFormBaseInterface
 {
-    use \Dvi\Support\Service\Controller\Base\Form\ControlFormTrait;
+    use ControlFormTrait;
     use ControlFormLayout;
     use ControlFormService;
 
