@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Controller;
+namespace Dvi\Support\Service\Controller;
 
 use Dvi\Support\Http\Request;
 use Exception;
@@ -20,7 +20,6 @@ class ControlLoadService
 {
     public function __construct()
     {
-
     }
 
     public function getData(Request $request, ReflectionClass $reflection_class, $method)

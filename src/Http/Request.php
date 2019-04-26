@@ -2,7 +2,7 @@
 
 namespace Dvi\Support\Http;
 
-use App\Service\Controller\ControlLoadService;
+use Dvi\Support\Service\Controller\ControlLoadService;
 use Dvi\Corda\Support\Corda;
 use FastRoute\Dispatcher;
 use Symfony\Component\HttpFoundation\ParameterBag;
