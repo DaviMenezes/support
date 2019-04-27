@@ -49,13 +49,13 @@ trait ControlStructureBaseService
             $class = get_called_class();
             $model = $class::getModel();
             $id = http()->get('id');
-            static::$currentObject = $model::find($id) ?? new $model();
+            $this->createCurrentObject($model, $id);
         } catch (Exception $e) {
             throw new Exception('Criando objeto corrente: '.$e->getMessage());
         }
     }
 
-    private function setLoggedUser()
+    protected function setLoggedUser()
     {
         $this->loggedUser = User::find(TSession::getValue('userid'));
     }
@@ -70,7 +70,7 @@ trait ControlStructureBaseService
         return $this->getEnvironment() == 'development';
     }
 
-    private function setEnvironment()
+    protected function setEnvironment()
     {
         $ini = AdiantiApplicationConfig::get();
         $this->environment = $ini['general']['environment'];
@@ -78,4 +78,13 @@ trait ControlStructureBaseService
     }
 
     abstract protected static function getModel():string;
+
+    protected function createCurrentObject($model, $id): void
+    {
+        try {
+            static::$currentObject = new $model($id);
+        } catch (Exception $exception) {
+            static::$currentObject = new $model();
+        }
+    }
 }
