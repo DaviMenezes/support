@@ -82,7 +82,10 @@ function removeDirectory($path)
     return;
 }
 
-/**@return Money*/
+/**
+ * @param int $dollar
+ * @return Money
+ */
 function money($dollar = 0)
 {
     $dollar = empty($dollar) ? 0 : $dollar;
@@ -101,7 +104,7 @@ function money($dollar = 0)
  * @return stdClass
  * @throws ReflectionException
  */
-function properties(string $class)
+function props(string $class)
 {
     $rf = (new ReflectionClass($class))->getDocComment();
 
