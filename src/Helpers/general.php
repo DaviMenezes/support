@@ -107,21 +107,15 @@ function properties(string $class)
 
     $obj = new stdClass();
     str($rf)->lines()->filter()->map(function (Corda $line, $key) use (&$obj) {
-        if ($line->contains('@property')) {
-            //if line format is incorrect
-            $parts = explode(' ', $line);
-            if (count($parts) <= 1) {
-                return;
-            }
-
-            //if property not contain $
-            $property = $parts[2];
-            if (!str($property)->contains('$')) {
-                return;
-            }
-            $property = $line->lastStr('$')->removeLeft('$')->str();
-            $obj->$property = $property;
+        if (!$line->contains('@property')) {
+            return;
         }
+        //if line format is incorrect
+        if (!$line->contains('$')) {
+            return;
+        }
+        $property = $line->lastStr('$')->removeLeft('$')->str();
+        $obj->$property = $property;
     });
     return $obj;
 }
