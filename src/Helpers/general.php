@@ -95,14 +95,31 @@ function money($dollar = 0)
     return $money;
 }
 
-function properties($model)
+/**
+ * Return properties of class
+ * @param string $class
+ * @return stdClass
+ * @throws ReflectionException
+ */
+function properties(string $class)
 {
-    $rf = (new ReflectionClass($model))->getDocComment();
+    $rf = (new ReflectionClass($class))->getDocComment();
 
     $obj = new stdClass();
-    str($rf)->lines()->filter()->map(function ($line, $key) use (&$obj) {
+    str($rf)->lines()->filter()->map(function (Corda $line, $key) use (&$obj) {
         if ($line->contains('@property')) {
-            $property = $line->lastStr('$')->str();
+            //if line format is incorrect
+            $parts = explode(' ', $line);
+            if (count($parts) <= 1) {
+                return;
+            }
+
+            //if property not contain $
+            $property = $parts[2];
+            if (!str($property)->contains('$')) {
+                return;
+            }
+            $property = $line->lastStr('$')->removeLeft('$')->str();
             $obj->$property = $property;
         }
     });
