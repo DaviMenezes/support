@@ -3,8 +3,10 @@
 namespace Dvi\Support\Model;
 
 use Adianti\Database\TRecord;
+use Exception;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Query\Builder;
+use ReflectionException;
 
 /**
  *  ControlLoadService
@@ -40,8 +42,13 @@ class ModelAdianti extends TRecord
 
     protected function addAttributes()
     {
-        foreach ($this->fillable as $property) {
-            parent::addAttribute($property);
+        try {
+            $props = props(get_called_class());
+            foreach ($props as $property) {
+                parent::addAttribute($property);
+            }
+        } catch (ReflectionException $e) {
+            throw new Exception('Preparando atributos do modelo '.self::class.': '.$e->getMessage());
         }
     }
 
@@ -205,4 +212,3 @@ class ModelAdianti extends TRecord
         return $model;
     }
 }
-
