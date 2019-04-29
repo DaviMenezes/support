@@ -105,7 +105,11 @@ function money($dollar = 0)
  */
 function props(string $class)
 {
-    $rf = (new ReflectionClass($class))->getDocComment();
+    try {
+        $rf = (new ReflectionClass($class))->getDocComment();
+    } catch (ReflectionException $e) {
+        $rf = '';
+    }
 
     $obj = new stdClass();
     str($rf)->lines()->filter()->map(function (Corda $line, $key) use (&$obj) {
@@ -122,12 +126,48 @@ function props(string $class)
     return $obj;
 }
 
-function redirect($class)
+/**
+ * @param string $class
+ * @return \Dvi\Support\Http\Redirect
+ */
+function redirect(string $class)
 {
     return new \Dvi\Support\Http\Redirect($class);
 }
 
+/**Return current date
+ * @return string|false a formatted date string. If a non-numeric value is used for
+ * timestamp, false is returned and an
+ * E_WARNING level error is emitted.
+ */
 function now()
 {
     return date('Y-m-d H:i:s');
+}
+
+/**Checks if value is empty
+ * @param $value
+ * @return bool
+ */
+function isEmpty($value)
+{
+    return !trim($value);
+}
+
+/**Check if value is not empty
+ * @param $value
+ * @return bool
+ */
+function notEmpty($value)
+{
+    return !isEmpty($value);
+}
+
+/**Alias to notEmpty
+ * @param $value
+ * @return bool
+ */
+function filled($value)
+{
+    return !isEmpty($value);
 }
