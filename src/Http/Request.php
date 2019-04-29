@@ -265,4 +265,20 @@ class Request
 
         return $result;
     }
+
+    public function isGet()
+    {
+        if (self::$request->getRealMethod() == 'GET') {
+            return true;
+        }
+        return false;
+    }
+
+    public function isPost()
+    {
+        if (self::$request->getRealMethod() == 'POST') {
+            return true;
+        }
+        return false;
+    }
 }
