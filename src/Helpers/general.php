@@ -102,7 +102,6 @@ function money($dollar = 0)
  * Return properties of class
  * @param string $class
  * @return stdClass
- * @throws ReflectionException
  */
 function props(string $class)
 {
@@ -126,4 +125,9 @@ function props(string $class)
 function redirect($class)
 {
     return new \Dvi\Support\Http\Redirect($class);
+}
+
+function now()
+{
+    return date('Y-m-d H:i:s');
 }
