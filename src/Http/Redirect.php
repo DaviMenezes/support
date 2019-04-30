@@ -3,6 +3,7 @@
 namespace Dvi\Support\Http;
 
 use Adianti\Core\AdiantiCoreApplication;
+use Adianti\Widget\Base\TScript;
 
 /**
  *  Redirect
@@ -19,7 +20,7 @@ class Redirect
     protected $class;
     protected $param;
 
-    public function __construct($class)
+    public function __construct($class = null)
     {
         $this->class = $class;
     }
@@ -36,6 +37,9 @@ class Redirect
 
     public function load()
     {
+        if (!$this->class) {
+            return;
+        }
         $this->prepareMethod();
 
         AdiantiCoreApplication::loadPage($this->class, $this->method, $this->param);
@@ -43,6 +47,9 @@ class Redirect
 
     public function go()
     {
+        if (!$this->class) {
+            return;
+        }
         $this->prepareMethod();
 
         AdiantiCoreApplication::gotoPage($this->class, $this->method, $this->param);
@@ -56,5 +63,10 @@ class Redirect
         if (isset($this->method) && !method_exists($this->class, $this->method)) {
             $this->method = null;
         }
+    }
+
+    public function url(string $url)
+    {
+        TScript::create('window.location.replace("'.$url.'");');
     }
 }
