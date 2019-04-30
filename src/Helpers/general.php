@@ -130,7 +130,7 @@ function props(string $class)
  * @param string $class
  * @return \Dvi\Support\Http\Redirect
  */
-function redirect(string $class)
+function redirect(string $class = null)
 {
     return new \Dvi\Support\Http\Redirect($class);
 }
@@ -159,15 +159,6 @@ function isEmpty($value)
  * @return bool
  */
 function notEmpty($value)
-{
-    return !isEmpty($value);
-}
-
-/**Alias to notEmpty
- * @param $value
- * @return bool
- */
-function filled($value)
 {
     return !isEmpty($value);
 }
