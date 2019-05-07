@@ -117,7 +117,7 @@ trait ControlFormTrait
     protected function afterSave()
     {
         new TMessage('info', 'Dados salvos.');
-        $this->reloadToEdit();
+        $this->redirect();
     }
 
     public function onEdit(Request $request)
@@ -144,7 +144,7 @@ trait ControlFormTrait
         }
     }
 
-    protected function reloadToEdit(): void
+    protected function redirect(): void
     {
         AdiantiCoreApplication::loadPage((new ReflectionClass(get_called_class()))->getShortName(), 'onEdit', ['id' => self::$currentObject->id]);
     }

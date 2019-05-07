@@ -4,9 +4,9 @@ namespace Dvi\Support\Service\Controller\Base;
 
 use Adianti\Control\TPage;
 use Adianti\Widget\Dialog\TMessage;
-use Dvi\Support\Service\Database\Transaction;
-use Dvi\Support\Service\Controller\ControlStructureBaseService;
 use Dvi\Support\Http\Request;
+use Dvi\Support\Service\Controller\ControlStructureBaseService;
+use Dvi\Support\Service\Database\Transaction;
 
 abstract class ControlBase extends TPage
 {
