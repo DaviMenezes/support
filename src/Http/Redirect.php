@@ -28,11 +28,13 @@ class Redirect
     public function method($method)
     {
         $this->method = $method;
+        return $this;
     }
 
-    public function param($param)
+    public function params(array $params)
     {
-        $this->param = $param;
+        $this->param = $params;
+        return $this;
     }
 
     public function load()
