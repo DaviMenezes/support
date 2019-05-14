@@ -51,7 +51,7 @@ abstract class ControlFormBase extends ControlFormListBase implements ControlFor
 
     protected static function getDatabase()
     {
-        return 'appportal';
+        return 'default';
     }
 
     protected static function getFormName()
