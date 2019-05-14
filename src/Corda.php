@@ -45,4 +45,9 @@ class Corda extends Stringy
         $result = $this->substr($position);
         return $result;
     }
+
+    public function afterTo(string $str)
+    {
+        return $this->lastStr($str)->removeLeft($str);
+    }
 }
