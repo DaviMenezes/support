@@ -14,9 +14,18 @@ namespace Dvi\Support\Service;
 trait ReflectionHelpers
 {
     /**@return self*/
-    public static function properties()
+    public static function properties($alias = null)
     {
-        return props(self::class);
+        $props = props(self::class);
+        if (!$alias) {
+            return $props;
+        }
+        $obj = new \stdClass();
+        $obj->alias = $alias;
+        foreach ($props as $key => $prop) {
+            $obj->$key = $alias . '.' . $prop;
+        }
+        return $obj;
     }
 
     /**
