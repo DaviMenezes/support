@@ -32,6 +32,7 @@ class ModelAdianti extends TRecord
     private $result_validate;
     protected $requireds = [];
     protected $required_errors = [];
+    protected $another_errors;
 
     public function __construct($id = null, bool $callObjectLoad = true)
     {
@@ -109,6 +110,9 @@ class ModelAdianti extends TRecord
             foreach ($required_errors as $required_error) {
                 $errors[] = ['type' => 'error', 'msg' => $required_error];
             }
+            foreach ($this->another_errors as $another_error) {
+                $errors[] = ['type' => 'error', 'msg' => $another_error];
+            }
         }
 
         return $errors;
@@ -128,22 +132,34 @@ class ModelAdianti extends TRecord
                 $group_fields = $field;
 
                 $current_field = $group_fields[0];
-                $obj = self::where($group_fields[0], '=', $this->$current_field);
+                $operator = $this->getOperator($current_field);
+                $value = $this->getFielterValue($current_field);
+                $obj = self::where($group_fields[0], $operator, $value);
                 foreach ($group_fields as $key => $current_field) {
                     if ($key == 0) {
                         continue;
                     }
-                    $obj->where($current_field, '=', $this->$current_field);
+                    $operator = $this->getOperator($current_field);
+                    $value = $this->getFielterValue($current_field);
+                    $obj->where($current_field, $operator, $value);
                 }
                 $count = $obj->count();
+
+                if ($count > 0) {
+                    $fields = implode($group_fields, ', ');
+
+                    $this->unique_errors[] = 'O grupo de campos <b>' . $fields . '</b> é único e o registro ' . $obj->first()->id . ' já possui os valores informados';
+                    return false;
+                }
             } else {
                 $current_field = $field;
                 $obj = self::where($field, '=', $this->$field);
                 $count = $obj->count();
-            }
-            if ($count > 0) {
-                $this->unique_errors[] = 'O campo <b>' . $current_field . '</b> é único e o registro ' . $obj->first()->id . ' já possui o valor: ' . $this->$current_field;
-                return false;
+
+                if ($count > 0) {
+                    $this->unique_errors[] = 'O campo <b>' . $current_field . '</b> é único e o registro ' . $obj->first()->id . ' já possui o valor: ' . $this->$current_field;
+                    return false;
+                }
             }
         }
         return true;
@@ -210,5 +226,17 @@ class ModelAdianti extends TRecord
         }
 
         return $model;
+    }
+
+    protected function getOperator($current_field): string
+    {
+        $operator = isEmpty($this->$current_field) ? 'is' : '=';
+        return $operator;
+    }
+
+    protected function getFielterValue($current_field)
+    {
+        $value = isEmpty($this->$current_field) ? null : $this->$current_field;
+        return $value;
     }
 }
