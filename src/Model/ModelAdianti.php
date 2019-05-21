@@ -239,4 +239,12 @@ class ModelAdianti extends TRecord
         $value = isEmpty($this->$current_field) ? null : $this->$current_field;
         return $value;
     }
+
+    public function fill($data)
+    {
+        foreach ($data as $key => $value) {
+            $this->$key = $value;
+        }
+        return $this;
+    }
 }
