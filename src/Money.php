@@ -25,7 +25,7 @@ use NumberFormatter;
  * @method \Money\Money assertOperand($operand)
  * @method \Money\Money assertRoundingMode($roundingMode)
  * @method \Money\Money multiply($multiplier, $roundingMode = \Money\Money::ROUND_HALF_UP)
- * @method Money divide($divisor, $roundingMode = \Money\Money::ROUND_HALF_UP)
+ * @method self divide($divisor, $roundingMode = \Money\Money::ROUND_HALF_UP)
  * @method \Money\Money mod(\Money\Money $divisor)
  * @method \Money\Money allocate(array $ratios)
  * @method \Money\Money allocateTo($n)
@@ -84,11 +84,13 @@ class Money
         return $moneyFormatter->format($this->money);
     }
 
-    public function decimal($layout = 'en_US', $currencies = null)
+    public function decimal($decimals = 2, $layout = 'en_US', $currencies = null)
     {
         $numberFormatter = new NumberFormatter($layout, NumberFormatter::DECIMAL);
         $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies ?? new ISOCurrencies());
-        return $moneyFormatter->format($this->money);
+        $number = $moneyFormatter->format($this->money);
+        $formated = number_format($number, $decimals, '.', ',');
+        return $formated;
     }
 
     public function currency($layout = 'en_US', $currencies = null)
@@ -121,9 +123,16 @@ class Money
         return $this->money;
     }
 
-    public function real()
+    public function real($decimals = 2)
     {
-        $number = $this->decimal('BRL');
-        return 'R$ '.number_format($number, 2, ',', '.');
+        $number = $this->decimal($decimals, 'BRL');
+        $number = str_replace([',',''], '', $number);
+        return 'R$ '.number_format($number, $decimals, ',', '.');
+    }
+
+    public function dollar($decimals = 2)
+    {
+        $number = $this->decimal($decimals);
+        return number_format($number, $decimals, ',', '.');
     }
 }
