@@ -86,16 +86,24 @@ function removeDirectory($path)
  * @param int $dollar
  * @return Money
  */
-function money($dollar = 0)
+function money($dollar = 0.00)
 {
-    $dollar = empty($dollar) ? 0 : $dollar;
     $dollar = str_replace([',', '.'], '', $dollar);
-    $dollar = str($dollar)->removeLeft('00');
-    if ($dollar->str() !== '0') {
-        $dollar = $dollar->removeLeft('0')->str();
-    }
     $money = Money::USD($dollar);
     return $money;
+}
+
+function toDollar($value = "0,00")
+{
+    $value = str_replace('.', '', $value);
+    $value = str_replace(',', '.', $value);
+    return $value;
+}
+
+function toReal($value = '0.00', $decimals = 2)
+{
+    $value = number_format($value, 2, ',', '.');
+    return $value;
 }
 
 /**
