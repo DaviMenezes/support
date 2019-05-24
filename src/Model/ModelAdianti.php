@@ -39,6 +39,13 @@ class ModelAdianti extends TRecord
         parent::__construct($id, $callObjectLoad);
 
         $this->addAttributes();
+
+        $this->addFillable();
+    }
+
+    public function addFillable()
+    {
+        $this->fillable = $this->getAttributes();
     }
 
     protected function addAttributes()
