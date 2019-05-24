@@ -5,17 +5,17 @@ trait ControlFormService
 {
     protected function recording(): bool
     {
-        if (!$this->editing()) {
+        if (!self::editing()) {
             return true;
         }
         return false;
     }
 
-    protected function editing(): bool
+    protected static function editing(): bool
     {
-        if (!empty($this->param['method'])
-            and in_array($this->param['method'], ['onEdit', 'onSave'])
-            and (!empty($this->param['id']) or !empty($this->param['key']))) {
+        if (!empty(http()->url('method'))
+            and in_array(http()->url('method'), ['onEdit', 'onSave'])
+            and (!empty(http()->url('id')) or !empty(http()->url('key')))) {
             return true;
         }
         return false;

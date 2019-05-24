@@ -32,7 +32,7 @@ trait ControlFormLayout
     protected function getFieldId()
     {
         $field = FormFieldFacade::hidden('id');
-        if ($this->editing()) {
+        if (self::editing()) {
             $field = FormFieldFacade::varchar('id')->disable();
             $field->size('80%');
         }
