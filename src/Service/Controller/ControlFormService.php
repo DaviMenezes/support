@@ -13,9 +13,7 @@ trait ControlFormService
 
     protected static function editing(): bool
     {
-        if (!empty(http()->url('method'))
-            and in_array(http()->url('method'), ['onEdit', 'onSave'])
-            and (!empty(http()->url('id')) or !empty(http()->url('key')))) {
+        if (!empty(http()->request('id')) or !empty(http()->request('key'))) {
             return true;
         }
         return false;
