@@ -97,12 +97,20 @@ function toDollar($value = "0,00")
 {
     $value = str_replace('.', '', $value);
     $value = str_replace(',', '.', $value);
+    $value = number_format($value, 2);
     return $value;
 }
 
 function toReal($value = '0.00', $decimals = 2)
 {
+    $value = str_replace(',', '', $value);
     $value = number_format($value, 2, ',', '.');
+    return $value;
+}
+
+function dbFormat($value)
+{
+    $value = (double)number_format($value, 2, '.', '');
     return $value;
 }
 
