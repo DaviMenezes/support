@@ -93,6 +93,7 @@ function money($dollar = 0.00)
     return $money;
 }
 
+/**Format value to dollar*/
 function toDollar($value = "0,00")
 {
     $value = str_replace('.', '', $value);
@@ -100,7 +101,16 @@ function toDollar($value = "0,00")
     $value = number_format($value, 2);
     return $value;
 }
+/**Format value to database*/
+function realToDatabase($value)
+{
+    $value = str_replace('.', '', $value);
+    $value = str_replace(',', '.', $value);
+    $value = (float)$value;
+    return $value;
+}
 
+/**Format value to Real*/
 function toReal($value = '0.00', $decimals = 2)
 {
     $value = str_replace(',', '', $value);
@@ -108,8 +118,10 @@ function toReal($value = '0.00', $decimals = 2)
     return $value;
 }
 
+/**Format value to database format*/
 function dbFormat($value)
 {
+    $value = str_replace(',', '', $value);
     $value = (double)number_format($value, 2, '.', '');
     return $value;
 }
