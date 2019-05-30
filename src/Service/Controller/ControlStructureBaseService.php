@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
 trait ControlStructureBaseService
 {
-    protected $param;
     protected $environment;
     /**@var FlashBag*/
     protected static $flashbag;
@@ -19,7 +18,6 @@ trait ControlStructureBaseService
     protected function initialize($param)
     {
         try {
-            $this->param = $param;
             $this->http = Request::instance();
             self::$flashbag = new FlashBag();
             $this->setCurrentObject();

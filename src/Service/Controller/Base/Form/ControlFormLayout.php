@@ -85,7 +85,7 @@ trait ControlFormLayout
             }
         }
         if ($empty_form) {
-            $data = (object)$this->param;
+            $data = (object)http()->postCollection()->all();
             unset($data->class, $data->method);
         }
         return $data;

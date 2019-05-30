@@ -78,7 +78,7 @@ abstract class ControlListBase extends ControlFormListBase implements InterfaceC
             Transaction::open(self::getDatabase());
 
             $this->createLayout();
-            $this->loadDataGrid($this->param);
+            $this->loadDataGrid(http()->getParameters());
 
             Transaction::close();
         } catch (\Exception $e) {
