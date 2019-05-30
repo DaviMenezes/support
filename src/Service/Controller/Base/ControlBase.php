@@ -71,16 +71,15 @@ abstract class ControlBase extends TPage
 
     public function run()
     {
-        $request = http();
-
-        if (!$_GET) {
+        if (!http()->url('method')) {
             return;
         }
+        $request = http();
+
+        $parameters = self::getParameters();
+
         $class  = $request->url('class');
         $method = $request->url('method');
-
-        $parameters = $this->getParameters($method, $class, $request);
-
         if ($class) {
             $object = $class == get_class($this) ? $this : new $class;
             if (is_callable(array($object, $method))) {
@@ -91,22 +90,28 @@ abstract class ControlBase extends TPage
         }
     }
 
-    protected function getParameters($method, $class, Request $request)
+    public static function getParameters()
     {
-        if (!$method) {
+        if (!http()->url('class')) {
+            return null;
+        }
+        $rf = new \ReflectionClass(http()->url('class'));
+
+        if (!http()->url('method')) {
+            $parameters = $rf->getConstructor()->getParameters();
+        } else {
+            $parameters = $rf->getMethod(http()->url('method'))->getParameters();
+        }
+
+        if (!count($parameters)) {
             return null;
         }
 
-        $rf = new \ReflectionClass($class);
-        $parameters = $rf->getMethod($method)->getParameters();
-
-        if (count($parameters)) {
-            $parameter = $parameters[0];
-            if ($parameter->name == 'request') {
-                return $request;
-            }
-            return $request->all();
+        $parameter = $parameters[0];
+        $type = $parameter->getType();
+        if ($type and $type->getName() == Request::class) {
+            return http();
         }
-        return null;
+        return http()->all();
     }
 }
