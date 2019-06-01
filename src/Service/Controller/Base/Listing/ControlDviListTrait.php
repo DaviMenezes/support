@@ -125,6 +125,18 @@ trait ControlDviListTrait
         return $action;
     }
 
+    /**@return TDataGridAction*/
+    protected function createDatagridActionDelete()
+    {
+        $action = new TDataGridAction([get_called_class(), 'onDelete']);
+        $action->setUseButton(true);
+        $action->setField('id');
+        $action->setLabel(_t('Edit'));
+        $action->setImage('fa:trash fa-2x red');
+        $this->datagrid->addAction($action);
+        return $action;
+    }
+
     protected function createPagination()
     {
         $this->pageNavigation = new TPageNavigation();
