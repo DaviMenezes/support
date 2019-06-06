@@ -2,6 +2,7 @@
 
 namespace Dvi\Support\Model;
 
+use Adianti\Core\AdiantiCoreTranslator;
 use Adianti\Database\TRecord;
 use Exception;
 use Illuminate\Database\Capsule\Manager as DB;
@@ -20,7 +21,7 @@ use ReflectionException;
  */
 class ModelAdianti extends TRecord
 {
-    const TABLENAME =  '';
+    const TABLENAME = '';
     const PRIMARYKEY = 'id';
     const IDPOLICY = 'serial';
 
@@ -56,7 +57,7 @@ class ModelAdianti extends TRecord
                 parent::addAttribute($property);
             }
         } catch (ReflectionException $e) {
-            throw new Exception('Preparando atributos do modelo '.self::class.': '.$e->getMessage());
+            throw new Exception('Preparando atributos do modelo ' . self::class . ': ' . $e->getMessage());
         }
     }
 
@@ -194,7 +195,7 @@ class ModelAdianti extends TRecord
         $attributes = $this->getAttributes();
         foreach ($attributes as $attribute) {
             if (in_array($attribute, $this->requireds) and empty($this->$attribute)) {
-                $this->required_errors[] = 'O campo '.$attribute.' é obrigatório e o valor "null" é inválido';
+                $this->required_errors[] = 'O campo ' . $attribute . ' é obrigatório e o valor "null" é inválido';
             }
         }
     }
@@ -209,17 +210,17 @@ class ModelAdianti extends TRecord
         return $this->fillable;
     }
 
-    /**@return Builder*/
+    /**@return Builder */
     public static function db($alias = null)
     {
         $class = get_called_class();
         $table = $class::TABLENAME;
 
         $alias = !$alias ? '' : ' as ' . $alias;
-        return DB::table($table.$alias);
+        return DB::table($table . $alias);
     }
 
-    /**@return ModelEloquent*/
+    /**@return ModelEloquent */
     public static function orm($id = null)
     {
         $class = get_called_class();
@@ -253,5 +254,37 @@ class ModelAdianti extends TRecord
             $this->$key = $value;
         }
         return $this;
+    }
+
+    public function __get($property)
+    {
+        $property = str_replace(['(', ')'], '', $property);
+        if (isset($this->data[$property])) {
+            return $this->data[$property];
+        } elseif (isset($this->vdata[$property])) {
+            return $this->vdata[$property];
+        }
+
+        if (method_exists($this, $property)) {
+            // execute the method get_<property>
+            return call_user_func(array($this, $property));
+        }
+        if (method_exists($this, 'get_'.$property)) {
+            return call_user_func(array($this, $property));
+        }
+        if (strpos($property, '->') !== false) {
+            $parts = explode('->', $property);
+            $container = $this;
+            $result = null;
+            foreach ($parts as $part) {
+                if (is_object($container)) {
+                    $result = $container->$part;
+                    $container = $result;
+                } else {
+                    throw new Exception(AdiantiCoreTranslator::translate('Trying to access a non-existent property (^1)', $property));
+                }
+            }
+            return $result;
+        }
     }
 }
