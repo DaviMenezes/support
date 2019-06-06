@@ -84,20 +84,23 @@ class Money
         return $moneyFormatter->format($this->money);
     }
 
-    public function decimal($decimals = 2, $layout = 'en_US', $currencies = null)
+    public function decimal($layout = 'en_US', $currencies = null)
     {
-        $numberFormatter = new NumberFormatter($layout, NumberFormatter::DECIMAL);
-        $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies ?? new ISOCurrencies());
-        $number = $moneyFormatter->format($this->money);
-        $formated = number_format($number, $decimals, '.', ',');
-        return $formated;
+        $number = str($this->currency($layout, $currencies))->removeLeft('$')->trim()->str();
+        return $number;
     }
 
     public function currency($layout = 'en_US', $currencies = null)
     {
         $numberFormatter = new NumberFormatter($layout, NumberFormatter::CURRENCY);
         $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies ?? new ISOCurrencies());
-        return $moneyFormatter->format($this->money);
+        $number = $moneyFormatter->format($this->money);
+        return $number;
+    }
+
+    public function dbFormat()
+    {
+        return dbFormat($this->decimal());
     }
 
     public function __call($name, $arguments)
@@ -125,9 +128,7 @@ class Money
 
     public function real($decimals = 2)
     {
-        $number = $this->decimal($decimals, 'BRL');
-        $number = str_replace([',',''], '', $number);
-        return 'R$ '.number_format($number, $decimals, ',', '.');
+        return 'R$ '.toReal($this->decimal('BRL'));
     }
 
     public function dollar($decimals = 2)
