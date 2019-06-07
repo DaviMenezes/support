@@ -266,7 +266,6 @@ class ModelAdianti extends TRecord
         }
 
         if (method_exists($this, $property)) {
-            // execute the method get_<property>
             return call_user_func(array($this, $property));
         }
         if (method_exists($this, 'get_'.$property)) {
