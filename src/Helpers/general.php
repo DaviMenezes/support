@@ -68,6 +68,10 @@ function editing()
     return true;
 }
 
+/**
+ * http request
+ * @return Request
+ */
 function http():Request
 {
     return Request::instance();
