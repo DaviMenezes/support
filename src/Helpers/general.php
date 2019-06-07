@@ -16,6 +16,7 @@ use Dvi\Corda\Support\Money;
 use Dvi\Support\Collection;
 use Dvi\Support\Http\Request;
 use Dvi\Support\Http\Web;
+use Dvi\Support\Notify;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Parser\IntlLocalizedDecimalParser;
@@ -106,7 +107,7 @@ function realToDatabase($value)
 {
     $value = str_replace('.', '', $value);
     $value = str_replace(',', '.', $value);
-    $value = (float)$value;
+    $value = (real)$value;
     return $value;
 }
 
@@ -119,7 +120,7 @@ function toReal($value = '0.00', $decimals = 2)
 }
 
 /**Format value to database format*/
-function dbFormat($value)
+function dollarToDatabase($value)
 {
     $value = str_replace(',', '', $value);
     $value = (double)number_format($value, 2, '.', '');
