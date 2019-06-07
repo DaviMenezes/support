@@ -100,7 +100,7 @@ class Money
 
     public function dbFormat()
     {
-        return dbFormat($this->decimal());
+        return dollarToDatabase($this->decimal());
     }
 
     public function __call($name, $arguments)
