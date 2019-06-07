@@ -115,7 +115,9 @@ class Money
             }
 
             if ($result instanceof \Money\Money) {
-                return money($result->getAmount());
+                $money = Money::USD($result->getAmount());
+
+                return $money;
             }
             return $result;
         }
