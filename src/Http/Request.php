@@ -103,7 +103,7 @@ class Request
 
     public function postCollection(): Collection
     {
-        return collect(self::$request->request->all())->filter();
+        return \collection(self::$request->request->all())->filter();
     }
 
     public function getCollection()
