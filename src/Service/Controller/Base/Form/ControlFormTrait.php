@@ -7,6 +7,7 @@ use Adianti\Database\TRecord;
 use Adianti\Database\TTransaction;
 use Adianti\Widget\Dialog\TMessage;
 use Adianti\Widget\Dialog\TQuestion;
+use Adianti\Widget\Form\TField;
 use Adianti\Wrapper\BootstrapFormBuilder;
 use Dvi\Support\Service\Database\Transaction;
 use Dvi\Support\Http\Request;
@@ -56,6 +57,13 @@ trait ControlFormTrait
         $errors = array();
         foreach ($this->form->getFields() as $fieldObject) {
             try {
+                $field_name = $fieldObject->getName();
+
+                if (!isset($data->$field_name)) {
+                    continue;
+                }
+
+                $fieldObject->setValue($data->$field_name);
                 $fieldObject->validate();
             } catch (Exception $e) {
                 $errors[] = $e->getMessage() . '.';
