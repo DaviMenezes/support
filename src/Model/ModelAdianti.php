@@ -4,6 +4,7 @@ namespace Dvi\Support\Model;
 
 use Adianti\Core\AdiantiCoreTranslator;
 use Adianti\Database\TRecord;
+use Adianti\Database\TRepository;
 use Exception;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Query\Builder;
@@ -18,6 +19,7 @@ use ReflectionException;
  * @copyright  Copyright (c) 2018. (davimenezes.dev@gmail.com)
  * @see https://github.com/DaviMenezes
  * @see https://t.me/davimenezes
+ * @method TRepository static where($variable, $operator, $value, $logicOperator = TExpression::AND_OPERATOR)
  */
 class ModelAdianti extends TRecord
 {
