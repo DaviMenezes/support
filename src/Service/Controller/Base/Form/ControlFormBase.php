@@ -15,13 +15,13 @@ abstract class ControlFormBase extends ControlFormListBase implements ControlFor
 
     abstract protected static function getListClass();
 
-    public function __construct($param, $mantem_conexao = false)
+    public function __construct($param, $keep_connection = false)
     {
         if (in_array(http()->url('method'), ['onEdit', 'edit']) && !http()->url('id')) {
             throw new \Exception('Na tentativa de editar, informe um id');
         }
 
-        parent::__construct($param, $mantem_conexao);
+        parent::__construct($param, $keep_connection);
     }
 
     protected function createLayout()
