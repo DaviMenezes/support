@@ -20,10 +20,10 @@ abstract class ControlBase extends TPage
 
     use ControlStructureBaseService;
 
-    public function __construct($param, $mantem_conexao = false)
+    public function __construct($param, $keep_connection = false)
     {
         try {
-            if (!$mantem_conexao) {
+            if (!$keep_connection) {
                 Transaction::open();
             }
 
@@ -33,7 +33,7 @@ abstract class ControlBase extends TPage
 
             $this->initialize($param);
 
-            if (!$mantem_conexao) {
+            if (!$keep_connection) {
                 Transaction::close();
             }
         } catch (\Exception $e) {
@@ -101,6 +101,11 @@ abstract class ControlBase extends TPage
             $parameters = $rf->getConstructor()->getParameters();
         } else {
             $parameters = $rf->getMethod(http()->url('method'))->getParameters();
+            if (!$rf->getMethod(http()->url('method'))->isStatic()) {
+                $construct_parameters = $rf->getConstructor()->getParameters();
+                $all = array_merge($construct_parameters, $parameters);
+                $parameters = collect($all)->filter()->all();
+            }
         }
 
         if (!count($parameters)) {
