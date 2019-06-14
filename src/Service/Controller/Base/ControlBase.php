@@ -97,9 +97,10 @@ abstract class ControlBase extends TPage
         }
         $rf = new \ReflectionClass(http()->url('class'));
 
+        $parameters = [];
         if (!http()->url('method')) {
             $parameters = $rf->getConstructor()->getParameters();
-        } else {
+        } elseif ($rf->hasMethod(http()->url('method'))) {
             $parameters = $rf->getMethod(http()->url('method'))->getParameters();
             if (!$rf->getMethod(http()->url('method'))->isStatic()) {
                 $construct_parameters = $rf->getConstructor()->getParameters();
