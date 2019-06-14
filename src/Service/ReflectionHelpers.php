@@ -2,6 +2,9 @@
 
 namespace Dvi\Support\Service;
 
+use Dvi\Support\Model\ModelAdianti;
+use stdClass;
+
 /**
  *  ReflectionHelpers
  *
@@ -16,16 +19,27 @@ trait ReflectionHelpers
     /**@return self*/
     public static function properties($alias = null)
     {
-        $props = props(self::class);
+        /**@var ModelAdianti $called_class*/
+        $called_class = self::class;
+
+        $properties = $called_class::getReflectionProperties();
+        if ($properties) {
+            return $properties;
+        }
+        $props = props($called_class);
+
         if (!$alias) {
-            return $props;
+            return self::$reflection_properties[$called_class] = $props;
         }
-        $obj = new \stdClass();
-        $obj->alias = $alias;
+
+        $properties = new stdClass();
+
+        $properties->alias = $alias;
         foreach ($props as $key => $prop) {
-            $obj->$key = $alias . '.' . $prop;
+            $properties->$key = $alias . '.' . $prop;
         }
-        return $obj;
+
+        return self::$reflection_properties[$called_class] = $properties;
     }
 
     /**

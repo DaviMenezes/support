@@ -16,6 +16,7 @@ use Dvi\Corda\Support\Money;
 use Dvi\Support\Collection;
 use Dvi\Support\Http\Request;
 use Dvi\Support\Http\Web;
+use Dvi\Support\Model\ModelAdianti;
 use Dvi\Support\Notify;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
