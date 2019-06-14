@@ -122,4 +122,28 @@ class FormField
     {
         return $this->get()->show();
     }
+
+    public function contentLeft()
+    {
+        $this->contentAlign('left');
+        return $this;
+    }
+
+    public function contentRight()
+    {
+        $this->contentAlign('right');
+        return $this;
+    }
+
+    public function contentCenter()
+    {
+        $this->contentAlign('center');
+        return $this;
+    }
+
+    public function contentAlign($position)
+    {
+        $this->field->style = 'text-align:'.$position;
+        return $this;
+    }
 }
