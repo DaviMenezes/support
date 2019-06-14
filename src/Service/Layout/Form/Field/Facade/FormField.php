@@ -47,9 +47,9 @@ class FormField
         return $this;
     }
 
-    public function width($widt, $height = null)
+    public function width($widt)
     {
-        $this->field->setSize($widt, $height);
+        $this->field->setSize($widt, null);
         return $this;
     }
 
