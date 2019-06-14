@@ -103,7 +103,7 @@ abstract class ControlBase extends TPage
             $parameters = $rf->getMethod(http()->url('method'))->getParameters();
             if (!$rf->getMethod(http()->url('method'))->isStatic()) {
                 $construct_parameters = $rf->getConstructor()->getParameters();
-                $all = array_merge($construct_parameters, $parameters);
+                $all = array_merge($parameters, $construct_parameters);
                 $parameters = collect($all)->filter()->all();
             }
         }
