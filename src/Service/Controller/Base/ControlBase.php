@@ -99,6 +99,9 @@ abstract class ControlBase extends TPage
 
         $parameters = [];
         if (!http()->url('method')) {
+            if (!$rf->hasMethod('__construct')) {
+                return http()->all();
+            }
             $parameters = $rf->getConstructor()->getParameters();
         } elseif ($rf->hasMethod(http()->url('method'))) {
             $parameters = $rf->getMethod(http()->url('method'))->getParameters();
@@ -108,7 +111,6 @@ abstract class ControlBase extends TPage
                 $parameters = collect($all)->filter()->all();
             }
         }
-
         if (!count($parameters)) {
             return null;
         }
