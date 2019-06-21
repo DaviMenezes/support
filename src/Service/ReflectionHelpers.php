@@ -16,20 +16,17 @@ use stdClass;
  */
 trait ReflectionHelpers
 {
+    public static $reflection_properties = [];
+
     /**@return self*/
     public static function properties($alias = null)
     {
         /**@var ModelAdianti $called_class*/
         $called_class = self::class;
 
-        $properties = $called_class::getReflectionProperties();
-        if ($properties) {
-            return $properties;
-        }
-        $props = props($called_class);
-
-        if (!$alias) {
-            return self::$reflection_properties[$called_class] = $props;
+        $props = self::getReflectionProperties($called_class);
+        if (!$alias or ($props and isset($alias) and isset($props->$alias))) {
+            return $props;
         }
 
         $properties = new stdClass();
@@ -40,6 +37,12 @@ trait ReflectionHelpers
         }
 
         return self::$reflection_properties[$called_class] = $properties;
+    }
+
+    public static function getReflectionProperties($class = null)
+    {
+        $class = $class ?? get_called_class();
+        return self::$reflection_properties[$class] = self::$reflection_properties[$class] ?? props($class);
     }
 
     /**

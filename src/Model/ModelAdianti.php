@@ -5,6 +5,7 @@ namespace Dvi\Support\Model;
 use Adianti\Core\AdiantiCoreTranslator;
 use Adianti\Database\TRecord;
 use Adianti\Database\TRepository;
+use Dvi\Support\Service\ReflectionHelpers;
 use Exception;
 use Illuminate\Database\Capsule\Manager as DB;
 use Illuminate\Database\Query\Builder;
@@ -27,10 +28,6 @@ class ModelAdianti extends TRecord
     const TABLENAME = '';
     const PRIMARYKEY = 'id';
     const IDPOLICY = 'serial';
-    /**
-     * @var stdClass
-     */
-    protected static $reflection_properties = [];
 
     protected $fillable = array();
 
@@ -59,9 +56,9 @@ class ModelAdianti extends TRecord
     protected function addAttributes()
     {
         try {
-            $called_class = get_called_class();
-            self::$reflection_properties[$called_class] = self::$reflection_properties[$called_class] ?? props($called_class);
-            foreach (self::$reflection_properties[$called_class] as $property) {
+            $properties = ReflectionHelpers::getReflectionProperties(get_called_class());
+
+            foreach ($properties as $property) {
                 parent::addAttribute($property);
             }
         } catch (ReflectionException $e) {
@@ -293,10 +290,5 @@ class ModelAdianti extends TRecord
             }
             return $result;
         }
-    }
-
-    public static function getReflectionProperties()
-    {
-        return self::$reflection_properties[get_called_class()] ?? null;
     }
 }
