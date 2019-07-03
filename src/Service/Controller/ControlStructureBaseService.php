@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
 trait ControlStructureBaseService
 {
-    protected $environment;
     /**@var FlashBag*/
     protected static $flashbag;
 
@@ -56,23 +55,6 @@ trait ControlStructureBaseService
     protected function setLoggedUser()
     {
         $this->loggedUser = User::find(TSession::getValue('userid'));
-    }
-
-    protected function getEnvironment()
-    {
-        return $this->environment = $this->environment ?? $this->setEnvironment();
-    }
-
-    protected function inDevelopment(): bool
-    {
-        return $this->getEnvironment() == 'development';
-    }
-
-    protected function setEnvironment()
-    {
-        $ini = AdiantiApplicationConfig::get();
-        $this->environment = $ini['general']['environment'];
-        return $this->environment;
     }
 
     abstract protected static function getModel():string;
