@@ -43,7 +43,7 @@ abstract class ControlFormBase extends ControlFormListBase implements ControlFor
 
     public function show()
     {
-        if (empty(http()->get('method'))) {
+        if (empty(http()->url('method'))) {
             $this->index();
         }
         parent::show();
