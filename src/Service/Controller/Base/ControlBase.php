@@ -74,12 +74,10 @@ abstract class ControlBase extends TPage
         if (!http()->url('method')) {
             return;
         }
-        $request = http();
-
         $parameters = self::getParameters();
 
-        $class  = $request->url('class');
-        $method = $request->url('method');
+        $class  = http()->url('class');
+        $method = http()->url('method');
         if ($class) {
             $object = $class == get_class($this) ? $this : new $class;
             if (is_callable(array($object, $method))) {
@@ -92,34 +90,38 @@ abstract class ControlBase extends TPage
 
     public static function getParameters()
     {
-        if (!http()->url('class')) {
-            return null;
-        }
-        $rf = new \ReflectionClass(http()->url('class'));
-
-        $parameters = [];
-        if (!http()->url('method')) {
-            if (!$rf->hasMethod('__construct')) {
-                return http()->all();
+        try {
+            if (!http()->url('class')) {
+                return null;
             }
-            $parameters = $rf->getConstructor()->getParameters();
-        } elseif ($rf->hasMethod(http()->url('method'))) {
-            $parameters = $rf->getMethod(http()->url('method'))->getParameters();
-            if (!$rf->getMethod(http()->url('method'))->isStatic()) {
-                $construct_parameters = $rf->getConstructor()->getParameters();
-                $all = array_merge($parameters, $construct_parameters);
-                $parameters = collect($all)->filter()->all();
-            }
-        }
-        if (!count($parameters)) {
-            return null;
-        }
+            $rf = new \ReflectionClass(http()->url('class'));
 
-        $parameter = $parameters[0];
-        $type = $parameter->getType();
-        if ($type and $type->getName() == Request::class) {
-            return http();
+            $parameters = [];
+            if (!http()->url('method')) {
+                if (!$rf->hasMethod('__construct')) {
+                    return http()->all();
+                }
+                $parameters = $rf->getConstructor()->getParameters();
+            } elseif ($rf->hasMethod(http()->url('method'))) {
+                $parameters = $rf->getMethod(http()->url('method'))->getParameters();
+                if (!$rf->getMethod(http()->url('method'))->isStatic()) {
+                    $construct_parameters = $rf->getConstructor()->getParameters();
+                    $all = array_merge($parameters, $construct_parameters);
+                    $parameters = collect($all)->filter()->all();
+                }
+            }
+            if (!count($parameters)) {
+                return null;
+            }
+
+            $parameter = $parameters[0];
+            $type = $parameter->getType();
+            if ($type and $type->getName() == Request::class) {
+                return http();
+            }
+            return http()->all();
+        } catch (\ReflectionException $exception) {
+            throw $exception;
         }
-        return http()->all();
     }
 }
