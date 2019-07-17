@@ -22,17 +22,27 @@ trait ReflectionHelpers
     public static function properties($alias = null)
     {
         /**@var ModelAdianti $called_class*/
-        $called_class = self::class;
+        $called_class = get_called_class();
 
         $props = self::getReflectionProperties($called_class);
         if (!$alias or ($props and isset($alias) and isset($props->$alias))) {
             return $props;
         }
-
-        $properties = new stdClass();
+        //clear alias in properties
+        foreach ($props as $key => $prop) {
+            if (strrpos($prop, '.') !== false) {
+                $array = explode('.', $prop);
+                unset($array[0]);
+                $props->$key = $array[1];
+            }
+        }
+        $properties = new $called_class();
 
         $properties->alias = $alias;
         foreach ($props as $key => $prop) {
+            if ($key == 'alias') {
+                continue;
+            }
             $properties->$key = $alias . '.' . $prop;
         }
 
@@ -43,6 +53,11 @@ trait ReflectionHelpers
     {
         $class = $class ?? get_called_class();
         return self::$reflection_properties[$class] = self::$reflection_properties[$class] ?? props($class);
+    }
+
+    public function alias()
+    {
+        return $this->alias;
     }
 
     /**
