@@ -11,6 +11,7 @@
  * @see https://t.me/davimenezes
  */
 
+use Adianti\Widget\Base\TScript;
 use Dvi\Corda\Support\Corda;
 use Dvi\Corda\Support\Money;
 use Dvi\Support\Collection;
@@ -195,4 +196,14 @@ function isEmpty($value)
 function notEmpty($value)
 {
     return !isEmpty($value);
+}
+
+function notityComponentWithViolation()
+{
+    foreach (http()->obj()->getSession()->getFlashBag()->get('validation_violation', []) as $key => $message) {
+        $msg_file_erros = '<div class="flash-notice">' . $message['violation']->getMessage() . '</div>';
+        $attribute = str($message['attribute'])->lastStr('.')->str();
+        $js = "$('#" . $attribute . "').after('" . $msg_file_erros . "')";
+        TScript::create($js);
+    }
 }
