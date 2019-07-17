@@ -38,7 +38,10 @@ class ModelAdianti extends TRecord
     protected $requireds = [];
     protected $required_errors = [];
     protected $another_errors;
+    protected $entity;
 
+    use ReflectionHelpers;
+    
     public function __construct($id = null, bool $callObjectLoad = true)
     {
         parent::__construct($id, $callObjectLoad);
@@ -64,6 +67,11 @@ class ModelAdianti extends TRecord
         } catch (ReflectionException $e) {
             throw new Exception('Preparando atributos do modelo ' . self::class . ': ' . $e->getMessage());
         }
+    }
+
+    protected function addEntity($entity)
+    {
+        $this->entity = $entity;
     }
 
     public function validate()
@@ -230,7 +238,8 @@ class ModelAdianti extends TRecord
     {
         $class = get_called_class();
 
-        $model = new ModelEloquent([], $class::TABLENAME);
+        $model = new class extends ModelEloquent {
+        };
         $model->fillable((new $class())->getFillable());
         $model->setTable($class::TABLENAME);
         if ($id) {

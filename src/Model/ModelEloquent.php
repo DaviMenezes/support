@@ -20,17 +20,6 @@ class ModelEloquent extends Model
     private $unique_errors = [];
     private $already_validated;
     private $result_validate;
-    private static $eloquent_table;
-
-    public function __construct(array $attributes = [], $table = null)
-    {
-        if ($table) {
-            self::$eloquent_table = $table;
-        }
-        $this->table = self::$eloquent_table ?? $table;
-
-        parent::__construct($attributes);
-    }
 
     public $timestamps = false;
 
