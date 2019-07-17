@@ -6,6 +6,7 @@ use Adianti\Validator\TCNPJValidator;
 use Adianti\Validator\TCPFValidator;
 use Adianti\Validator\TEmailValidator;
 use Adianti\Widget\Form\TEntry;
+use Adianti\Widget\Form\TField;
 
 /**
  * FormFieldVarchar
@@ -16,6 +17,12 @@ use Adianti\Widget\Form\TEntry;
 class FormFieldVarchar extends FormField
 {
     use FieldWithMask;
+
+    public function __construct(TField $field, $label = null)
+    {
+        parent::__construct($field, $label);
+        $field->class = 'form-control tfield';
+    }
 
     public function uppercase()
     {
