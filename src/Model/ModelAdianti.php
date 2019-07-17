@@ -230,8 +230,7 @@ class ModelAdianti extends TRecord
     {
         $class = get_called_class();
 
-        $model = new class extends ModelEloquent {
-        };
+        $model = new ModelEloquent([], $class::TABLENAME);
         $model->fillable((new $class())->getFillable());
         $model->setTable($class::TABLENAME);
         if ($id) {
