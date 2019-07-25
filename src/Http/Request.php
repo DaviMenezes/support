@@ -44,16 +44,12 @@ class Request
         return self::$request;
     }
 
-    public function get($key, $default = null, $decode = null)
+    public function sessionFlash($param)
     {
-        $result = $this->result()->get($key, $default);
-        if ($decode) {
-            return base64_decode($result);
-        }
-        return $result;
+        return $this->obj()->getSession()->getFlashBag()->get($param, [])[0] ?? null;
     }
 
-    public function url($key, $default = null, $decode = null)
+    public function query($key, $default = null, $decode = null)
     {
         $result = $this->obj()->query->get($key, $default);
         if ($decode) {
@@ -64,15 +60,10 @@ class Request
 
     public function request($key, $default = null, $decode = null)
     {
-        $post = self::$request->request->all();
-        $get = self::$request->query->all();
-        $attributes = self::$request->attributes->all();
-        $all = array_merge($get, $post, $attributes);
-        $result = collect($all)->filter()->get($key, $default);
-        return $result;
+        return $this->collect()->get($key, $default);
     }
 
-    public function post($key, $default = null)
+    public function body($key, $default = null)
     {
         return self::$request->request->get($key, $default);
     }
@@ -92,33 +83,22 @@ class Request
         $get = self::$request->query->all();
         $post = self::$request->request->all();
         $attributes = self::$request->attributes->all();
-        $all = array_merge($get, $post, $attributes);
-        return $all;
+        return array_merge($get, $post, $attributes);
     }
 
     public function collect(): Collection
     {
-        return collect($this->result()->all());
+        return \collection($this->all())->filter();
     }
 
     public function postCollection(): Collection
     {
-        return \collection(self::$request->request->all())->filter();
-    }
-
-    public function getCollection()
-    {
-        return collect($this->all());
-    }
-
-    public function getParameters(): array
-    {
-        return $this->all();
+        return \collection(self::$request->request->all());
     }
 
     public function has($key)
     {
-        return $this->result()->has($key);
+        return $this->collect()->has($key);
     }
 
     public function add(array $parameters)
@@ -128,7 +108,7 @@ class Request
 
     public function uriGet(): string
     {
-        $this->getCollection()->map(function ($key, $value) use (&$uri) {
+        $this->collect()->map(function ($key, $value) use (&$uri) {
             $uri .= '/' . $key . '/' . $value;
         });
 
@@ -210,28 +190,6 @@ class Request
         return $data;
     }
 
-    public function __call($name, $arguments)
-    {
-        return $this->callMethod($name, $arguments);
-    }
-
-    public static function __callStatic($name, $arguments)
-    {
-        return self::callMethod($name, $arguments);
-    }
-
-    private static function callMethod($name, $arguments)
-    {
-        $result = '';
-        if (method_exists(self::$request, $name)) {
-            $result = self::$request->$name($arguments);
-        }
-        if (is_string($result)) {
-            return str($result);
-        }
-        return $result;
-    }
-
     private function executeRequest($class, $method)
     {
         $reflection_class = new \ReflectionClass($class);
@@ -242,7 +200,7 @@ class Request
         if (!$reflection_class->isInstantiable()) {
             throw new \Exception('The class ' . $class . ' is not instantiable');
         }
-
+        //Todo verificar classe DviControl
         /**@var DviControl $obj*/
         $data_construct = $this->getDataToRequest($reflection_class, '__construct');
         $data_method = $this->getDataToRequest($reflection_class, $method);
@@ -280,5 +238,27 @@ class Request
             return true;
         }
         return false;
+    }
+
+    public function __call($name, $arguments)
+    {
+        return $this->callMethod($name, $arguments);
+    }
+
+    public static function __callStatic($name, $arguments)
+    {
+        return self::callMethod($name, $arguments);
+    }
+
+    private static function callMethod($name, $arguments)
+    {
+        $result = '';
+        if (method_exists(self::$request, $name)) {
+            $result = self::$request->$name($arguments);
+        }
+        if (is_string($result)) {
+            return str($result);
+        }
+        return $result;
     }
 }
