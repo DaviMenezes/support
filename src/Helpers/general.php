@@ -17,11 +17,10 @@ use Dvi\Corda\Support\Money;
 use Dvi\Support\Collection;
 use Dvi\Support\Http\Request;
 use Dvi\Support\Http\Web;
-use Dvi\Support\Model\ModelAdianti;
 use Dvi\Support\Notify;
-use Money\Currencies\ISOCurrencies;
-use Money\Currency;
-use Money\Parser\IntlLocalizedDecimalParser;
+use Dvi\Component\TemplateEngine\TemplateEngine;
+use Dvi\Component\TemplateEngine\BladeOneInstance;
+use eftec\bladeone\BladeOne;
 
 function collection($value)
 {
@@ -63,7 +62,12 @@ function editing()
         $param_key = $param['key'];
         $param_value = $param['value'] ?? null;
 
-        if (!$request->has($param_key) or (isset($param_value) and $request->has($param_key) and $request->get($param_key) !== $param_value)) {
+        if (http()->isGet()) {
+            $id = http()->query('id');
+        } else {
+            $id = http()->body('id');
+        }
+        if (!$request->has($param_key) or (isset($param_value) and $request->has($param_key) and $id !== $param_value)) {
             return false;
         }
     }
@@ -196,6 +200,13 @@ function isEmpty($value)
 function notEmpty($value)
 {
     return !isEmpty($value);
+}
+
+function view(string $view, array $data = null)
+{
+    $blade = new BladeOne(VIEW_PATH, VIEW_CACHE_PATH, BLADE_MODE);
+    $templateEngine = TemplateEngine::instance(BladeOneInstance::class);
+    echo $blade->run($view, $data);
 }
 
 function notityComponentWithViolation()
