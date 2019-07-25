@@ -2,22 +2,17 @@
 
 namespace Dvi\Support\Service\Layout\Form\Field\Facade;
 
-use Adianti\Widget\Form\TCombo;
+use Adianti\Base\Lib\Widget\Form\TFile;
+use Adianti\Base\Lib\Widget\Form\THtmlEditor;
 use Adianti\Widget\Form\TDate;
-use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\THidden;
-use Adianti\Widget\Form\THtmlEditor;
 use Adianti\Widget\Form\TNumeric;
 use Adianti\Widget\Form\TRadioGroup;
 use Adianti\Widget\Form\TSpinner;
 use Adianti\Widget\Form\TText;
-use Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldSpinner;
-use Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldVarchar;
-use Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldCombo;
-use Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldDate;
-use Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldItems;
-use Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldRadio;
-use Dvi\Support\Service\Layout\Form\Field\Facade\FormField;
+use Dvi\Adianti\Widget\Form\Field\UniqueSearch;
+use Dvi\Component\Widget\Form\Field\Combo\Combo;
+use Dvi\Component\Widget\Form\Field\Varchar;
 
 /**
  * FormFieldFacade
@@ -28,7 +23,7 @@ class FormFieldFacade
 {
     public static function varchar($name, $label = null):FormFieldVarchar
     {
-        $formField = new FormFieldVarchar(new TEntry($name), $label);
+        $formField = new FormFieldVarchar(new Varchar($name), $label);
 
         return $formField;
     }
@@ -56,7 +51,7 @@ class FormFieldFacade
 
     public static function combo(string $name, $label = null)
     {
-        $formField = new \Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldCombo(new TCombo($name), $label);
+        $formField = new FormFieldCombo(new Combo($name, $label), $label);
 
         return $formField;
     }
@@ -86,5 +81,19 @@ class FormFieldFacade
     {
         $field = new \Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldDate(new TDate($name), $label);
         return $field;
+    }
+
+    public static function uniqueSearch(UniqueSearch $field)
+    {
+        $formField = new FormFieldUniqueSearch($field);
+
+        return $formField;
+    }
+
+    public static function file(string $name)
+    {
+        $formField = new FormField(new TFile($name));
+
+        return $formField;
     }
 }
