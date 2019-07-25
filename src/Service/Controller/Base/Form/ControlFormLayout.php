@@ -36,7 +36,7 @@ trait ControlFormLayout
             $field = FormFieldFacade::varchar('id')->disable();
             $field->size('80%');
         }
-        $field->value(http()->get('id', self::$currentObject->id));
+        $field->value(http()->query('id', self::$currentObject->id));
         return $field->get();
     }
 
@@ -85,7 +85,7 @@ trait ControlFormLayout
             }
         }
         if ($empty_form) {
-            $data = (object)http()->getParameters();
+            $data = (object)http()->all();
             unset($data->class, $data->method);
         }
         return $data;

@@ -7,6 +7,7 @@ use Adianti\Validator\TCPFValidator;
 use Adianti\Validator\TEmailValidator;
 use Adianti\Widget\Form\TEntry;
 use Adianti\Widget\Form\TField;
+use Dvi\Component\Widget\Form\Field\Varchar;
 
 /**
  * FormFieldVarchar
@@ -18,7 +19,7 @@ class FormFieldVarchar extends FormField
 {
     use FieldWithMask;
 
-    public function __construct(TField $field, $label = null)
+    public function __construct(Varchar $field, $label = null)
     {
         parent::__construct($field, $label);
         $field->class = 'form-control tfield';

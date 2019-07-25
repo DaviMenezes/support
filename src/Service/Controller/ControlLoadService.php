@@ -39,7 +39,7 @@ class ControlLoadService
                 return $request;
             }
 
-            return $request->getParameters();
+            return $request->all();
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

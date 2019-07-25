@@ -71,13 +71,13 @@ abstract class ControlBase extends TPage
 
     public function run()
     {
-        if (!http()->url('method')) {
+        if (!http()->query('method')) {
             return;
         }
         $parameters = self::getParameters();
 
-        $class  = http()->url('class');
-        $method = http()->url('method');
+        $class  = http()->query('class');
+        $method = http()->query('method');
         if ($class) {
             $object = $class == get_class($this) ? $this : new $class;
             if (is_callable(array($object, $method))) {
@@ -91,20 +91,20 @@ abstract class ControlBase extends TPage
     public static function getParameters()
     {
         try {
-            if (!http()->url('class')) {
+            if (!http()->query('class')) {
                 return null;
             }
-            $rf = new \ReflectionClass(http()->url('class'));
+            $rf = new \ReflectionClass(http()->query('class'));
 
             $parameters = [];
-            if (!http()->url('method')) {
+            if (!http()->query('method')) {
                 if (!$rf->hasMethod('__construct')) {
                     return http()->all();
                 }
                 $parameters = $rf->getConstructor()->getParameters();
-            } elseif ($rf->hasMethod(http()->url('method'))) {
-                $parameters = $rf->getMethod(http()->url('method'))->getParameters();
-                if (!$rf->getMethod(http()->url('method'))->isStatic()) {
+            } elseif ($rf->hasMethod(http()->query('method'))) {
+                $parameters = $rf->getMethod(http()->query('method'))->getParameters();
+                if (!$rf->getMethod(http()->query('method'))->isStatic()) {
                     $construct_parameters = $rf->getConstructor()->getParameters();
                     $all = array_merge($parameters, $construct_parameters);
                     $parameters = collect($all)->filter()->all();

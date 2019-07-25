@@ -45,7 +45,7 @@ trait ControlStructureBaseService
             }
             $class = get_called_class();
             $model = $class::getModel();
-            $id = http()->get('id');
+            $id = http()->query('id');
             $this->createCurrentObject($model, $id);
         } catch (Exception $e) {
             throw new Exception('Criando objeto corrente: '.$e->getMessage());

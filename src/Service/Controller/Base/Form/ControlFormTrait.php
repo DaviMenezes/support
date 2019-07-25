@@ -81,7 +81,7 @@ trait ControlFormTrait
         if ($this->form) {
             $data = (array)$this->form_custom_data ?? $this->form->getData();
         } else {
-            $data = $request->getParameters();
+            $data = $request->all();
         }
 
         self::$currentObject->fromArray($data);
@@ -132,7 +132,7 @@ trait ControlFormTrait
     {
         try {
             Transaction::open(self::$database);
-            if (empty($request->get('id'))) {
+            if (empty($request->query('id'))) {
                 throw new Exception('Permissão negada');
             }
 
@@ -141,7 +141,7 @@ trait ControlFormTrait
             /**@var TRecord $model*/
             $class = get_called_class();
             $model = $class::getModel();
-            $result = $model::find($request->get('id'));
+            $result = $model::find($request->body('id'));
 
             $this->fillFormWithData($result);
 

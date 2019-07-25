@@ -2,9 +2,8 @@
 
 namespace Dvi\Support\Service\Layout\Form\Field\Facade;
 
-use Adianti\Validator\TRequiredValidator;
-use Adianti\Widget\Base\TElement;
-use Adianti\Widget\Form\TField;
+use Adianti\Base\Lib\Widget\Form\TField;
+use Adianti\Base\Lib\Validator\TRequiredValidator;
 
 /**
  *  FormField
@@ -46,6 +45,7 @@ class FormField
     public function label($label)
     {
         $this->label = ucfirst($label ?? ($this->field->getName()));
+        $this->field->setLabel($label);
         return $this;
     }
 
@@ -113,6 +113,7 @@ class FormField
     private function setLabel($label)
     {
         $this->label = $label;
+        $this->field->setLabel($label);
     }
 
     public function get()

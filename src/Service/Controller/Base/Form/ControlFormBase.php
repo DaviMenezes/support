@@ -17,7 +17,7 @@ abstract class ControlFormBase extends ControlFormListBase implements ControlFor
 
     public function __construct($param, $keep_connection = false)
     {
-        if (in_array(http()->url('method'), ['onEdit', 'edit']) && !http()->url('id')) {
+        if (in_array(http()->query('method'), ['onEdit', 'edit']) && !http()->query('id')) {
             throw new \Exception('Na tentativa de editar, informe um id');
         }
 
@@ -43,7 +43,7 @@ abstract class ControlFormBase extends ControlFormListBase implements ControlFor
 
     public function show()
     {
-        if (empty(http()->url('method'))) {
+        if (empty(http()->query('method'))) {
             $this->index();
         }
         parent::show();
