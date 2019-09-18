@@ -112,7 +112,7 @@ abstract class ControlListBase extends ControlFormListBase implements InterfaceC
     protected function createFormActionNew()
     {
         $btn = $this->form->addActionLink('Novo', new TAction([$this->getFormClass(), 'index']), 'fa:plus');
-        $btn->addStyleClass('btn-primary');
+        $btn->class = 'btn btn-primary';
     }
 
     protected function createActionSearch(): void
