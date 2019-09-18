@@ -190,7 +190,12 @@ function now()
  */
 function isEmpty($value)
 {
-    return !trim($value);
+
+    $value = trim($value);
+    if (empty($value) or $value == '""' or $value == "''") {
+        return true;
+    }
+    return false;
 }
 
 /**Check if value is not empty
