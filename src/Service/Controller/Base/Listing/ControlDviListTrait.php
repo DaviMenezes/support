@@ -131,7 +131,7 @@ trait ControlDviListTrait
         $action = new TDataGridAction([get_called_class(), 'onDelete']);
         $action->setUseButton(true);
         $action->setField('id');
-        $action->setLabel(_t('Edit'));
+        $action->setLabel(_t('Delete'));
         $action->setImage('fa:trash fa-2x red');
         $this->datagrid->addAction($action);
         return $action;
