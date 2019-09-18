@@ -1,5 +1,5 @@
 <?php
-namespace Dvi\Support\Acl\Service\Controller\Base\Form;
+namespace Dvi\Support\Service\Controller\Base\Form;
 
 use Dvi\Support\Service\Base\Contract\ControlFormBaseInterface;
 use Dvi\Support\Service\Controller\Base\ControlFormListBase;
