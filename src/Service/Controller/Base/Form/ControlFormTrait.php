@@ -166,7 +166,7 @@ trait ControlFormTrait
     protected function createFormActionBackToList()
     {
         $btn = $this->form->addActionLink('Voltar', new TAction([$this->getListClass(), 'index']), 'fa:arrow-left');
-        $btn->addStyleClass('btn-primary');
+        $btn->class = 'btn btn-primary';
         return $btn;
     }
 
