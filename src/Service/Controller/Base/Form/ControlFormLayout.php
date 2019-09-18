@@ -15,10 +15,9 @@ trait ControlFormLayout
     {
         $this->form = new BootstrapFormBuilder(static::getFormName());
         $this->form->setFormTitle($this->getPageTitle());
-
         $this->createFormFields();
 
-        $this->form->setCurrentPage(http()->request('tab'));
+        $this->form->setCurrentPage(http()->query('tab'));
 
         if ($this->form->getFields()) {
             $this->form->setData(TSession::getValue(get_called_class().'_filter_data'));
