@@ -2,11 +2,11 @@
 
 namespace Dvi\Support\Service\Controller\Base\Form;
 
+use Adianti\Base\Lib\Wrapper\BootstrapFormBuilder;
 use Adianti\Registry\TSession;
 use Adianti\Validator\TRequiredValidator;
 use Adianti\Widget\Form\AdiantiWidgetInterface;
 use Adianti\Widget\Form\TLabel;
-use Adianti\Wrapper\BootstrapFormBuilder;
 use Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldFacade;
 
 trait ControlFormLayout
