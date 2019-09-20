@@ -3,7 +3,7 @@
 namespace Dvi\Support\Service\Layout\Form\Field\Facade;
 
 use Adianti\Base\Lib\Widget\Form\TField;
-use Adianti\Base\Lib\Validator\TRequiredValidator;
+use Dvi\Adianti\Widget\Form\Field\Validator\RequiredValidator;
 
 /**
  *  FormField
@@ -32,7 +32,7 @@ class FormField
 
     public function required()
     {
-        $this->field->addValidation($this->getLabel(), new TRequiredValidator());
+        $this->field->addValidation($this->getLabel(), new RequiredValidator());
         return $this;
     }
 
