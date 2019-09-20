@@ -54,7 +54,8 @@ trait ControlFormTrait
         $this->form_custom_data = $data;
 
         $errors = array();
-        foreach ($this->form->getFields() as $fieldObject) {
+        $fields = $this->form->getFields();
+        foreach ($fields as $fieldObject) {
             try {
                 $field_name = $fieldObject->getName();
 
@@ -63,7 +64,9 @@ trait ControlFormTrait
                 }
 
                 $fieldObject->setValue($data->$field_name);
-                $fieldObject->validate();
+                if (!$fieldObject->validate()) {
+                    $errors[] = implode("<br>", $fieldObject->getErrorMessage());
+                }
             } catch (Exception $e) {
                 $errors[] = $e->getMessage() . '.';
             }
