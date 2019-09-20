@@ -11,6 +11,8 @@ use Adianti\Widget\Form\TNumeric;
 use Adianti\Widget\Form\TRadioGroup;
 use Adianti\Widget\Form\TSpinner;
 //use Adianti\Widget\Form\TText;
+use Dvi\Adianti\Widget\Form\Field\Hidden;
+use Dvi\Adianti\Widget\Form\Field\Text;
 use Dvi\Adianti\Widget\Form\Field\UniqueSearch;
 use Dvi\Component\Widget\Form\Field\Combo\Combo;
 use Dvi\Component\Widget\Form\Field\Varchar;
@@ -26,21 +28,21 @@ class FormFieldFacade
 {
     public static function varchar($name, $label = null):FormFieldVarchar
     {
-        $formField = new FormFieldVarchar(new Varchar($name), $label);
+        $formField = new FormFieldVarchar(new Varchar($name, $label), $label);
 
         return $formField;
     }
 
-    public static function hidden($name, $label = null)
+    public static function hidden($name)
     {
-        $formField = new FormField(new THidden($name), $label);
+        $formField = new FormField(new Hidden($name));
 
         return $formField;
     }
 
     public static function text(string $name, $label = null)
     {
-        $formField = new FormField(new TText($name), $label);
+        $formField = new FormField(new Text($name, $label), $label);
 
         return $formField;
     }
