@@ -24,7 +24,7 @@ abstract class ControlBase extends TPage
     {
         try {
             if (!$keep_connection) {
-                Transaction::open();
+                Transaction::open($this->getDatabase());
             }
 
             parent::__construct();
