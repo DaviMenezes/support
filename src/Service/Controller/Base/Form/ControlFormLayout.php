@@ -32,8 +32,8 @@ trait ControlFormLayout
     {
         $field = FormFieldFacade::hidden('id');
         if (self::editing()) {
-            $field = FormFieldFacade::varchar('id')->disable();
-            $field->size('80%');
+            $field = FormFieldFacade::varchar('id', 'Id')->disable();
+            $field->size('20%');
         }
         $field->value(http()->query('id', self::$currentObject->id));
         return $field->get();
@@ -61,7 +61,7 @@ trait ControlFormLayout
 
     protected function createFieldId()
     {
-        $this->form->addFields($this->createLabelId(), [$this->getFieldId()]);
+        $this->form->addFields([$this->getFieldId()]);
     }
 
     protected function createLabelId(): array
