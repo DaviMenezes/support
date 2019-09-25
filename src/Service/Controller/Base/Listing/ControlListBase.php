@@ -1,7 +1,7 @@
 <?php
 namespace Dvi\Support\Service\Controller\Base\Listing;
 
-use Adianti\Control\TAction;
+use Adianti\Base\Lib\Control\TAction;
 use Adianti\Widget\Container\TPanelGroup;
 use Adianti\Widget\Container\TVBox;
 use Adianti\Widget\Datagrid\TDataGridActionGroup;
@@ -48,7 +48,7 @@ abstract class ControlListBase extends ControlFormListBase implements InterfaceC
 
         $container = new TVBox;
         $container->style = 'width: 100%';
-        $container->add(TBreadCrumb::create(['Minhas Cotações', 'Cotações Digitadas']));
+        $container->add(TBreadCrumb::create([$this->getPageTitle()]));
         $container->add($this->form);
         $container->add($panel_grid);
 
@@ -75,7 +75,7 @@ abstract class ControlListBase extends ControlFormListBase implements InterfaceC
     public function index()
     {
         try {
-            Transaction::open(self::getDatabase());
+            Transaction::open(static::getDatabase());
 
             $this->createLayout();
             $this->loadDataGrid(http()->all());
