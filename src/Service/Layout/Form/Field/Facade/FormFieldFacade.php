@@ -3,21 +3,16 @@
 namespace Dvi\Support\Service\Layout\Form\Field\Facade;
 
 use Adianti\Base\Lib\Widget\Form\TFile;
-use Adianti\Base\Lib\Widget\Form\THidden;
 use Adianti\Base\Lib\Widget\Form\THtmlEditor;
-use Adianti\Base\Lib\Widget\Form\TText;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TNumeric;
 use Adianti\Widget\Form\TRadioGroup;
 use Adianti\Widget\Form\TSpinner;
-//use Adianti\Widget\Form\TText;
 use Dvi\Adianti\Widget\Form\Field\Hidden;
 use Dvi\Adianti\Widget\Form\Field\Text;
 use Dvi\Adianti\Widget\Form\Field\UniqueSearch;
 use Dvi\Component\Widget\Form\Field\Combo\Combo;
 use Dvi\Component\Widget\Form\Field\Varchar;
-
-//use Adianti\Widget\Form\THidden;
 
 /**
  * FormFieldFacade
@@ -33,9 +28,9 @@ class FormFieldFacade
         return $formField;
     }
 
-    public static function hidden($name)
+    public static function hidden($name, $class = Hidden::class)
     {
-        $formField = new FormField(new Hidden($name));
+        $formField = new FormField(new $class($name));
 
         return $formField;
     }
