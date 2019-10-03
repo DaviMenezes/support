@@ -3,12 +3,12 @@
 namespace Dvi\Support\Service\Layout\Form\Field\Facade;
 
 use Adianti\Base\Lib\Widget\Form\TFile;
-use Adianti\Base\Lib\Widget\Form\THtmlEditor;
+use Adianti\Base\Lib\Widget\Form\TRadioGroup;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TNumeric;
-use Adianti\Widget\Form\TRadioGroup;
 use Adianti\Widget\Form\TSpinner;
 use Dvi\Adianti\Widget\Form\Field\Hidden;
+use Dvi\Adianti\Widget\Form\Field\HtmlEditor;
 use Dvi\Adianti\Widget\Form\Field\Text;
 use Dvi\Adianti\Widget\Form\Field\UniqueSearch;
 use Dvi\Component\Widget\Form\Field\Combo\Combo;
@@ -56,9 +56,9 @@ class FormFieldFacade
         return $formField;
     }
 
-    public static function html($name, $label = null)
+    public static function html($name, $height, $label = null)
     {
-        $field = new FormField(new THtmlEditor($name), $label);
+        $field = new FormField(new HtmlEditor($name, $height, $label), $label);
 
         return $field;
     }
