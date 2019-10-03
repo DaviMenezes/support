@@ -86,7 +86,7 @@ trait ControlFormTrait
             $data = $request->all();
         }
 
-        self::$currentObject->fromArray($data);
+        static::$currentObject->fromArray($data);
     }
 
     public function salvageQuestion()
@@ -119,9 +119,9 @@ trait ControlFormTrait
 
     protected function save()
     {
-        self::$currentObject->store();
+        static::$currentObject->store();
 
-        return self::$currentObject;
+        return static::$currentObject;
     }
 
     protected function afterSave()
@@ -156,13 +156,15 @@ trait ControlFormTrait
 
     protected function redirect(): void
     {
-        AdiantiCoreApplication::loadPage((new ReflectionClass(get_called_class()))->getShortName(), 'onEdit', ['id' => self::$currentObject->id]);
+        AdiantiCoreApplication::loadPage((new ReflectionClass(get_called_class()))->getShortName(), 'onEdit', ['id' => static::$currentObject->id]);
     }
 
     protected function createFormActionSave()
     {
-        $btn = $this->form->addAction('Salvar', new TAction([$this, 'onSave']));
+        $action = new TAction([$this, 'onSave']);
+        $btn = $this->form->addAction('Salvar', $action);
         $btn->addStyleClass('btn btn-primary');
+        return [$btn, $action];
     }
 
     protected function createFormActionBackToList()

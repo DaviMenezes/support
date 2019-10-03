@@ -25,7 +25,7 @@ trait ReflectionHelpers
         $called_class = get_called_class();
 
         $props = self::getReflectionProperties($called_class);
-        if (!$alias or ($props and isset($alias) and isset($props->$alias))) {
+        if (!$alias or ($props and isset($alias) and isset($props->alias))) {
             return $props;
         }
         //clear alias in properties

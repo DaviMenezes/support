@@ -40,8 +40,8 @@ trait ControlStructureBaseService
     protected function setCurrentObject()
     {
         try {
-            if (isset(self::$currentObject)) {
-                return self::$currentObject;
+            if (isset(static::$currentObject)) {
+                return static::$currentObject;
             }
             $class = get_called_class();
             $model = $class::getModel();
