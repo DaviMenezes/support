@@ -17,10 +17,7 @@ use Dvi\Corda\Support\Money;
 use Dvi\Support\Collection;
 use Dvi\Support\Http\Request;
 use Dvi\Support\Http\Web;
-use Dvi\Support\Notify;
-use Dvi\Component\TemplateEngine\TemplateEngine;
-use Dvi\Component\TemplateEngine\BladeOneInstance;
-use eftec\bladeone\BladeOne;
+use Dvi\Support\View\View;
 
 function collection($value)
 {
@@ -209,9 +206,7 @@ function notEmpty($value)
 
 function view(string $view, array $data = null)
 {
-    $blade = new BladeOne(VIEW_PATH, VIEW_CACHE_PATH, BLADE_MODE);
-    $templateEngine = TemplateEngine::instance(BladeOneInstance::class);
-    echo $blade->run($view, $data);
+    echo View::run($view, $data);
 }
 
 function notityComponentWithViolation()
