@@ -3,7 +3,7 @@
 namespace Dvi\Support\Service\Layout\Form\Field\Facade;
 
 use Adianti\Base\Lib\Widget\Form\TField;
-use Dvi\Adianti\Widget\Form\Field\Validator\RequiredValidator;
+use Dvi\Component\Widget\Form\Field\Validator\RequiredValidator;
 
 /**
  *  FormField
