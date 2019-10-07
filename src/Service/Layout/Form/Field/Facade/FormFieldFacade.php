@@ -7,10 +7,10 @@ use Adianti\Base\Lib\Widget\Form\TRadioGroup;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TNumeric;
 use Adianti\Widget\Form\TSpinner;
-use Dvi\Adianti\Widget\Form\Field\Hidden;
-use Dvi\Adianti\Widget\Form\Field\HtmlEditor;
-use Dvi\Adianti\Widget\Form\Field\Text;
-use Dvi\Adianti\Widget\Form\Field\UniqueSearch;
+use Dvi\Component\Widget\Form\Field\Hidden\Hidden;
+use Dvi\Component\Widget\Form\Field\HtmlEditor;
+use Dvi\Component\Widget\Form\Field\Text;
+use Dvi\Component\Widget\Form\Field\UniqueSearch;
 use Dvi\Component\Widget\Form\Field\Combo\Combo;
 use Dvi\Component\Widget\Form\Field\Varchar;
 
