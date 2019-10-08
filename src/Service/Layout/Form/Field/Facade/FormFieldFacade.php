@@ -5,13 +5,13 @@ namespace Dvi\Support\Service\Layout\Form\Field\Facade;
 use Adianti\Base\Lib\Widget\Form\TFile;
 use Adianti\Base\Lib\Widget\Form\TRadioGroup;
 use Adianti\Widget\Form\TDate;
-use Adianti\Widget\Form\TNumeric;
 use Adianti\Widget\Form\TSpinner;
+use Dvi\Adianti\Componente\Model\Form\Fields\Numeric;
+use Dvi\Component\Widget\Form\Field\Combo\Combo;
 use Dvi\Component\Widget\Form\Field\Hidden\Hidden;
 use Dvi\Component\Widget\Form\Field\HtmlEditor;
 use Dvi\Component\Widget\Form\Field\Text;
 use Dvi\Component\Widget\Form\Field\UniqueSearch;
-use Dvi\Component\Widget\Form\Field\Combo\Combo;
 use Dvi\Component\Widget\Form\Field\Varchar;
 
 /**
@@ -42,9 +42,21 @@ class FormFieldFacade
         return $formField;
     }
 
-    public static function numeric(string $name, $decimal, $decimal_separator, $thousandSeparator, $replaceOnPost = true, $label = null)
-    {
-        $formField = new FormField(new TNumeric($name, $decimal, $decimal_separator, $thousandSeparator, $replaceOnPost), $label);
+    public static function numeric(
+        string $name,
+        int $decimal,
+        $decimal_separator = ',',
+        $thousandSeparator = '.',
+        $label = null,
+        $replaceOnPost = true
+    ) {
+        $formField = new FormField(new Numeric(
+            $name,
+            $decimal,
+            $decimal_separator,
+            $thousandSeparator,
+            $replaceOnPost
+        ), $label);
 
         return $formField;
     }
