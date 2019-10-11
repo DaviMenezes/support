@@ -19,7 +19,7 @@ class FormFieldVarchar extends FormField
 {
     use FieldWithMask;
 
-    public function __construct(Varchar $field, $label = null)
+    public function __construct($field, $label = null)
     {
         parent::__construct($field, $label);
         $field->class = 'form-control tfield';
