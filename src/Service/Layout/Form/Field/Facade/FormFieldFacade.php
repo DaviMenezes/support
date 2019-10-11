@@ -21,9 +21,9 @@ use Dvi\Component\Widget\Form\Field\Varchar;
  */
 class FormFieldFacade
 {
-    public static function varchar($name, $label = null):FormFieldVarchar
+    public static function varchar($name, $label = null, $class = Varchar::class):FormFieldVarchar
     {
-        $formField = new FormFieldVarchar(new Varchar($name, $label), $label);
+        $formField = new FormFieldVarchar(new $class($name, $label), $label);
 
         return $formField;
     }
@@ -35,9 +35,9 @@ class FormFieldFacade
         return $formField;
     }
 
-    public static function text(string $name, $label = null)
+    public static function text(string $name, $label = null, $class = Text::class)
     {
-        $formField = new FormField(new Text($name, $label), $label);
+        $formField = new FormField(new $class($name, $label), $label);
 
         return $formField;
     }
@@ -48,9 +48,10 @@ class FormFieldFacade
         $decimal_separator = ',',
         $thousandSeparator = '.',
         $label = null,
+        $class = Numeric::class,
         $replaceOnPost = true
     ) {
-        $formField = new FormField(new Numeric(
+        $formField = new $class(new $class(
             $name,
             $decimal,
             $decimal_separator,
@@ -61,37 +62,37 @@ class FormFieldFacade
         return $formField;
     }
 
-    public static function combo(string $name, $label = null)
+    public static function combo(string $name, $label = null, $class = Combo::class)
     {
-        $formField = new FormFieldCombo(new Combo($name, $label), $label);
+        $formField = new FormFieldCombo(new $class($name, $label), $label);
 
         return $formField;
     }
 
-    public static function html($name, $height, $label = null)
+    public static function html($name, $height, $label = null, $class = HtmlEditor::class)
     {
-        $field = new FormField(new HtmlEditor($name, $height, $label), $label);
+        $field = new FormField(new $class($name, $height, $label), $label);
 
         return $field;
     }
 
-    public static function spinner(string $name, $label = null)
+    public static function spinner(string $name, $label = null, $class = TSpinner::class)
     {
-        $formField = new FormFieldSpinner(new TSpinner($name), $label);
+        $formField = new FormFieldSpinner(new $class($name), $label);
         $formField->range(1, 2000, 1);
 
         return $formField;
     }
 
-    public static function radio(string $name, $label = null)
+    public static function radio(string $name, $label = null, $class = TRadioGroup::class)
     {
-        $formField = new FormFieldRadio(new TRadioGroup($name), $label);
+        $formField = new FormFieldRadio(new $class($name), $label);
         return $formField;
     }
 
-    public static function date(string $name, $label = null)
+    public static function date(string $name, $label = null, $class = TDate::class)
     {
-        $field = new \Dvi\Support\Service\Layout\Form\Field\Facade\FormFieldDate(new TDate($name), $label);
+        $field = new FormFieldDate(new $class($name), $label);
         return $field;
     }
 
