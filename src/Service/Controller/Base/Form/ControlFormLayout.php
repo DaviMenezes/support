@@ -30,9 +30,10 @@ trait ControlFormLayout
 
     protected function getFieldId()
     {
-        $field = FormFieldFacade::hidden('id');
         if (notEmpty(http()->request('id'))) {
             $field = FormFieldFacade::varchar('id', 'Id')->disable()->size('20%');
+        } else {
+            $field = FormFieldFacade::hidden('id');
         }
         $field->value(http()->query('id', static::$currentObject->id));
         return $field->get();

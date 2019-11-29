@@ -33,6 +33,7 @@ class FormField
     public function required()
     {
         $this->field->addValidation($this->getLabel(), new RequiredValidator());
+        $this->field->setProperty('required', 'required');
         return $this;
     }
 
@@ -64,6 +65,7 @@ class FormField
     public function value($value)
     {
         $this->field->setValue($value);
+        $this->field->setProperty('value', $value);
         return $this;
     }
 

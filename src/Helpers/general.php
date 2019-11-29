@@ -166,7 +166,7 @@ function props(string $class)
  * @param string $class
  * @return \Dvi\Support\Http\Redirect
  */
-function redirect(string $class = null)
+function redirect(string $class)
 {
     return new \Dvi\Support\Http\Redirect($class);
 }

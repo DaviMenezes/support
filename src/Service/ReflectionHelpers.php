@@ -2,6 +2,7 @@
 
 namespace Dvi\Support\Service;
 
+use BaconQrCode\Common\Mode;
 use Dvi\Support\Model\ModelAdianti;
 use stdClass;
 
@@ -24,11 +25,15 @@ trait ReflectionHelpers
         /**@var ModelAdianti $called_class*/
         $called_class = get_called_class();
 
-        $props = self::getReflectionProperties($called_class);
+        $props = self::getReflectionProperties($called_class, $alias);
         if (!$alias or ($props and isset($alias) and isset($props->alias))) {
-            return $props;
+            if (is_a($props, stdClass::class)) {
+                return self::getCalledClassAsModel($props);
+            }
+            return  $props;
         }
         //clear alias in properties
+        $props = is_a($props, stdClass::class) ? $props : (object)$props->getData();
         foreach ($props as $key => $prop) {
             if (strrpos($prop, '.') !== false) {
                 $array = explode('.', $prop);
@@ -46,18 +51,38 @@ trait ReflectionHelpers
             $properties->$key = $alias . '.' . $prop;
         }
 
-        return self::$reflection_properties[$called_class] = $properties;
+        $alias = '_alias-'.$alias;
+        $key = $called_class.$alias;
+        return self::$reflection_properties[$key] = $properties;
     }
 
-    public static function getReflectionProperties($class = null)
+    private static function getCalledClassAsModel($properties):ModelAdianti
+    {
+        $called_class = get_called_class();
+        /**@var ModelAdianti $obj*/
+        $obj = new $called_class();
+        $obj->fromArray((array)$properties);
+
+        self::$reflection_properties[$called_class] = $obj;
+        return $obj;
+    }
+
+
+    public static function getReflectionProperties($class = null, $alias = null)
     {
         $class = $class ?? get_called_class();
-        return self::$reflection_properties[$class] = self::$reflection_properties[$class] ?? props($class);
+        $alias = $alias ? '-alias_' . $alias : null;
+        $key = $class . $alias;
+
+        if (!isset(self::$reflection_properties[$key])) {
+            self::$reflection_properties[$key] = props($class);
+        }
+        return self::$reflection_properties[$key];
     }
 
     public function alias()
     {
-        return $this->alias;
+        return $this->alias ?? null;
     }
 
     /**

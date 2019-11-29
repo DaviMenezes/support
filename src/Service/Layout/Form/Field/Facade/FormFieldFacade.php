@@ -2,14 +2,16 @@
 
 namespace Dvi\Support\Service\Layout\Form\Field\Facade;
 
+use Adianti\Base\Lib\Widget\Form\TCheckGroup;
+use Adianti\Base\Lib\Widget\Form\TDateTime;
 use Adianti\Base\Lib\Widget\Form\TFile;
-use Adianti\Base\Lib\Widget\Form\TRadioGroup;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TSpinner;
 use Dvi\Adianti\Componente\Model\Form\Fields\Numeric;
 use Dvi\Component\Widget\Form\Field\Combo\Combo;
 use Dvi\Component\Widget\Form\Field\Hidden\Hidden;
 use Dvi\Component\Widget\Form\Field\HtmlEditor;
+use Dvi\Component\Widget\Form\Field\RadioGroup\RadioGroup;
 use Dvi\Component\Widget\Form\Field\Text;
 use Dvi\Component\Widget\Form\Field\UniqueSearch;
 use Dvi\Component\Widget\Form\Field\Varchar;
@@ -84,15 +86,27 @@ class FormFieldFacade
         return $formField;
     }
 
-    public static function radio(string $name, $label = null, $class = TRadioGroup::class)
+    public static function radio(string $name, $label = null, $class = RadioGroup::class)
     {
-        $formField = new FormFieldRadio(new $class($name), $label);
+        $formField = new FormFieldRadio(new $class($name, $label), $label);
+        return $formField;
+    }
+
+    public static function check(string $name, $label = null, $class = TCheckGroup::class)
+    {
+        $formField = new FormFieldCheck(new $class($name, $label), $label);
         return $formField;
     }
 
     public static function date(string $name, $label = null, $class = TDate::class)
     {
         $field = new FormFieldDate(new $class($name), $label);
+        return $field;
+    }
+
+    public static function dateHour(string $name, $label = null, $class = TDateTime::class)
+    {
+        $field = new FormFieldDateTime(new $class($name), $label);
         return $field;
     }
 

@@ -2,8 +2,8 @@
 
 namespace Dvi\Support\Service\Database;
 
-use Adianti\Database\TTransaction;
-use Adianti\Widget\Dialog\TMessage;
+use Adianti\Base\Lib\Database\TTransaction;
+use Adianti\Base\Lib\Widget\Dialog\TMessage;
 
 /**
  * Transaction

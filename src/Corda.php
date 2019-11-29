@@ -2,6 +2,7 @@
 
 namespace Dvi\Corda\Support;
 
+use Dvi\Support\Collection;
 use Stringy\Stringy;
 
 /**

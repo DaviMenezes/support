@@ -3,7 +3,7 @@
 namespace Dvi\Support\Model;
 
 use Adianti\Core\AdiantiCoreTranslator;
-use Adianti\Database\TRecord;
+use Adianti\Base\Lib\Database\TRecord;
 use Adianti\Database\TRepository;
 use Dvi\Support\Service\ReflectionHelpers;
 use Exception;
@@ -298,5 +298,13 @@ class ModelAdianti extends TRecord
             }
             return $result;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 }

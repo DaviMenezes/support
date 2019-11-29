@@ -33,7 +33,7 @@ class Redirect
 
     public function params(array $params)
     {
-        $this->param = $params;
+        $this->param = array_merge($this->param ?? [], $params);
         return $this;
     }
 

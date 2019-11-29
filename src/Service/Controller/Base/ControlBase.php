@@ -12,7 +12,6 @@ abstract class ControlBase extends TPage
 {
     protected static $database;
     public static $currentObject;
-    protected $loggedUser;
     protected $already_create_layout;
     protected $panel;
     /**@var Request*/
