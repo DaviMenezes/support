@@ -23,7 +23,8 @@ class FormField
     public function __construct(TField $field, $label = null)
     {
         $this->field = $field;
-        $field->setId($field->getName());
+        $this->field->setId($field->getName());
+        $this->field->setProperty('id', $field->getName());
 
         if ($label) {
             $this->setLabel($label);

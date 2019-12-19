@@ -26,7 +26,9 @@ use Tightenco\Collect\Support\Collection;
  */
 class Request
 {
+    /**@var self*/
     protected static $request;
+    /**@var self*/
     private static $instance;
 
     private function __construct()

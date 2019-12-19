@@ -2,6 +2,7 @@
 
 namespace Dvi\Support;
 
+use Dvi\Corda\Support\Corda;
 use Dvi\Corda\Support\Corda as str;
 use Tightenco\Collect\Support\Collection as SupportCollection;
 
@@ -14,13 +15,14 @@ use Tightenco\Collect\Support\Collection as SupportCollection;
  * @copyright  Copyright (c) 2018. (davimenezes.dev@gmail.com)
  * @see https://github.com/DaviMenezes
  * @see https://t.me/davimenezes
+ * @method Corda first(callable $callback = null, $default = null)
  */
 class Collection extends SupportCollection
 {
     /**
      * @param $value
      * @param null $glue
-     * @return Corda
+     * @return str
      */
     public function implode($value, $glue = null)
     {
@@ -30,7 +32,7 @@ class Collection extends SupportCollection
     /**
      * @param $key
      * @param null $default
-     * @return Corda|mixed
+     * @return str|mixed
      */
     public function get($key, $default = null)
     {
@@ -41,7 +43,7 @@ class Collection extends SupportCollection
         return $result;
     }
 
-    /**@return Corda*/
+    /**@return str*/
     public function route()
     {
         $this->map(function ($item, $key) use (&$url) {

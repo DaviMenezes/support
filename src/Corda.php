@@ -14,6 +14,7 @@ use Stringy\Stringy;
  * @copyright  Copyright (c) 2018. (davimenezes.dev@gmail.com)
  * @see https://github.com/DaviMenezes
  * @see https://t.me/davimenezes
+ * @method Corda first($n)
  */
 class Corda extends Stringy
 {
@@ -34,7 +35,7 @@ class Corda extends Stringy
     /**@return Collection*/
     public function split($pattern, $limit = null)
     {
-        return collect(parent::split($pattern, $limit));
+        return \collection(parent::split($pattern, $limit));
     }
 
     public function lastStr(string $separator)
