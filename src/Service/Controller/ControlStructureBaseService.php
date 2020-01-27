@@ -2,7 +2,7 @@
 
 namespace Dvi\Support\Service\Controller;
 
-use Adianti\Core\AdiantiApplicationConfig;
+use Adianti\Base\Lib\Core\AdiantiApplicationConfig;
 use Adianti\Database\TTransaction;
 use Adianti\Registry\TSession;
 use App\Control\User\Model\User;

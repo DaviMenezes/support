@@ -7,7 +7,7 @@ use Adianti\Base\Lib\Widget\Form\TDateTime;
 use Adianti\Base\Lib\Widget\Form\TFile;
 use Adianti\Widget\Form\TDate;
 use Adianti\Widget\Form\TSpinner;
-use Dvi\Adianti\Componente\Model\Form\Fields\Numeric;
+use Dvi\Componente\Widget\Form\Fields\Numeric;
 use Dvi\Component\Widget\Form\Field\Combo\Combo;
 use Dvi\Component\Widget\Form\Field\Hidden\Hidden;
 use Dvi\Component\Widget\Form\Field\HtmlEditor;

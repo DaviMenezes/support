@@ -187,9 +187,10 @@ function now()
  */
 function isEmpty($value)
 {
-
-    $value = trim($value);
-    if (empty($value) or $value == '""' or $value == "''") {
+    if (is_string($value)) {
+        $value = trim($value);
+    }
+    if ($value == '' or $value == '""' or $value == "''") {
         return true;
     }
     return false;
