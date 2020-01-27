@@ -109,7 +109,7 @@ trait ControlFormTrait
 
     protected function getSalvageQuestionMessage(): string
     {
-        return 'Salvando ' . (new ReflectionClass(self::getModel()))->getShortName();
+        return 'Salvando ' . (new ReflectionClass(static::getModel()))->getShortName();
     }
 
     public function salvageConfirmed(Request $request)
